@@ -1,0 +1,109 @@
+@startuml classes-server
+!include _style.iuml
+title Diagramma delle classi · server MCP e back-end
+hide empty members
+
+package "devops_agent.mcp_server" {
+  class "server" as Server <<module>> {
+    +mcp: MCPServer
+    +list_services(environment, name_contains): ServiceList
+    +list_teams(): TeamList
+    +list_requests(status, priority, team_id, service_id, unassigned_only, limit, order_by): RequestList
+    +get_request(request_id): RequestDetail
+    +get_pipeline_status(service_id, pipeline_name): PipelineStatus
+    +create_request(title, description, priority, service_id): RequestDetail
+    +assign_request(request_id, team_id): RequestDetail
+    +update_request_status(request_id, status, note): RequestDetail
+    -_run(tool_name, fn, kwargs)
+  }
+}
+
+package "devops_agent.backend" {
+  class "services" as Services <<module>> {
+    +list_services(conn, ...): ServiceList
+    +list_teams(conn): TeamList
+    +list_requests(conn, ...): RequestList
+    +get_request(conn, request_id): RequestDetail
+    +get_pipeline_status(conn, service_id, pipeline_name): PipelineStatus
+    +create_request(conn, ..., actor): RequestDetail
+    +assign_request(conn, request_id, team_id, actor): RequestDetail
+    +update_request_status(conn, request_id, status, note, actor): RequestDetail
+  }
+  class "database" as Database <<module>> {
+    +connect(path): Connection
+    +init_db(path, seed, reset): Path
+  }
+  class DomainError {
+    +code: str
+    +message: str
+  }
+  class RequestSummary {
+    id; title; status; priority
+    service_id; service_name; environment
+    team_id; team_name; created_at
+  }
+  class RequestDetail {
+    description; updated_at
+    history: list[HistoryEntry]
+  }
+  class HistoryEntry {
+    event
+    old_value
+    new_value
+    actor
+    at
+  }
+  class RequestList {
+    count
+    total_matching
+    truncated
+  }
+  class ServiceList {
+    count
+  }
+  class ServiceOut {
+    id
+    name
+    environment
+    description
+  }
+  class TeamList {
+    count
+  }
+  class TeamOut {
+    id
+    name
+    specialty
+  }
+  class PipelineStatus {
+    service_id
+    service_name
+    environment
+  }
+  class PipelineRunOut {
+    pipeline_id
+    pipeline_name
+    status
+    executed_at
+    duration_seconds
+    summary
+  }
+}
+
+package "mcp (SDK ufficiale)" {
+  class MCPServer
+  class ToolError
+}
+
+Server *-- MCPServer
+Server ..> Services : delega
+Server ..> ToolError : traduce DomainError
+Services ..> Database
+Services ..> DomainError : solleva
+RequestSummary <|-- RequestDetail
+RequestDetail *-- "0..*" HistoryEntry
+RequestList *-- "0..*" RequestSummary
+ServiceList *-- "0..*" ServiceOut
+TeamList *-- "0..*" TeamOut
+PipelineStatus *-- "1..*" PipelineRunOut
+@enduml

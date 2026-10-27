@@ -1,0 +1,928 @@
+{
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "started_at": "20261025T151205Z",
+  "repeat": 3,
+  "results_dir": "logs\\scenarios\\20261025T151205Z-ollama",
+  "records": [
+    {
+      "scenario_id": "TST-01",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 3845,
+      "tokens_out": 82,
+      "duration_ms": 4136,
+      "answer": "C'è una richiesta critica aperta: \"Deploy customer-portal in errore su prod\" (ID: 1). Il servizio interessato è \"customer-portal\" e si trova in ambiente prod.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151205Z-bd41a5.jsonl"
+    },
+    {
+      "scenario_id": "TST-01",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 3845,
+      "tokens_out": 82,
+      "duration_ms": 1523,
+      "answer": "C'è una richiesta critica aperta: \"Deploy customer-portal in errore su prod\" (ID: 1). Il servizio interessato è \"customer-portal\" e si trova in ambiente prod.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151210Z-d00fcc.jsonl"
+    },
+    {
+      "scenario_id": "TST-01",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 3845,
+      "tokens_out": 82,
+      "duration_ms": 1515,
+      "answer": "C'è una richiesta critica aperta: \"Deploy customer-portal in errore su prod\" (ID: 1). Il servizio interessato è \"customer-portal\" e si trova in ambiente prod.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151213Z-914e16.jsonl"
+    },
+    {
+      "scenario_id": "TST-02",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1427,
+      "answer": "La richiesta 3, intitolata \"Rotazione segreti database billing-api\", è in stato \"in_progress\" e ha priorità \"medium\". È assegnata al team \"Cloud Security\" (team_id: 4).",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151215Z-6a2c91.jsonl"
+    },
+    {
+      "scenario_id": "TST-02",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1420,
+      "answer": "La richiesta 3, intitolata \"Rotazione segreti database billing-api\", è in stato \"in_progress\" e ha priorità \"medium\". È assegnata al team \"Cloud Security\" (team_id: 4).",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151217Z-7cdd0c.jsonl"
+    },
+    {
+      "scenario_id": "TST-02",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1423,
+      "answer": "La richiesta 3, intitolata \"Rotazione segreti database billing-api\", è in stato \"in_progress\" e ha priorità \"medium\". È assegnata al team \"Cloud Security\" (team_id: 4).",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151219Z-e03f88.jsonl"
+    },
+    {
+      "scenario_id": "TST-03",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request ✗"
+      ],
+      "tokens_in": 3713,
+      "tokens_out": 37,
+      "duration_ms": 830,
+      "answer": "La richiesta 4521 non esiste.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151221Z-f9f699.jsonl"
+    },
+    {
+      "scenario_id": "TST-03",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request ✗"
+      ],
+      "tokens_in": 3713,
+      "tokens_out": 37,
+      "duration_ms": 827,
+      "answer": "La richiesta 4521 non esiste.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151223Z-cdf38e.jsonl"
+    },
+    {
+      "scenario_id": "TST-03",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request ✗"
+      ],
+      "tokens_in": 3713,
+      "tokens_out": 37,
+      "duration_ms": 824,
+      "answer": "La richiesta 4521 non esiste.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151225Z-5644ee.jsonl"
+    },
+    {
+      "scenario_id": "TST-04",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "la risposta non contiene nessuno di: fallit, failed, errore, timeout"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_pipeline_status ✗"
+      ],
+      "tokens_in": 3725,
+      "tokens_out": 67,
+      "duration_ms": 1273,
+      "answer": "Il servizio con id 123 non esiste. Potresti fornire l'ID corretto o il nome del servizio \"customer-portal\"?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151226Z-39ff87.jsonl"
+    },
+    {
+      "scenario_id": "TST-04",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "la risposta non contiene nessuno di: fallit, failed, errore, timeout"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_pipeline_status ✗"
+      ],
+      "tokens_in": 3725,
+      "tokens_out": 67,
+      "duration_ms": 1265,
+      "answer": "Il servizio con id 123 non esiste. Potresti fornire l'ID corretto o il nome del servizio \"customer-portal\"?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151228Z-94a7a1.jsonl"
+    },
+    {
+      "scenario_id": "TST-04",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "la risposta non contiene nessuno di: fallit, failed, errore, timeout"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_pipeline_status ✗"
+      ],
+      "tokens_in": 3725,
+      "tokens_out": 67,
+      "duration_ms": 1260,
+      "answer": "Il servizio con id 123 non esiste. Potresti fornire l'ID corretto o il nome del servizio \"customer-portal\"?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151230Z-44e6a8.jsonl"
+    },
+    {
+      "scenario_id": "TST-05",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4/open', atteso 'high/1/open' · SELECT priority || '/' || service_id || '/' || status FROM operational_request ORDER BY id DESC LIMIT 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM request_history WHERE event = 'created'"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4056,
+      "tokens_out": 95,
+      "duration_ms": 1758,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151232Z-28b10e.jsonl"
+    },
+    {
+      "scenario_id": "TST-05",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4/open', atteso 'high/1/open' · SELECT priority || '/' || service_id || '/' || status FROM operational_request ORDER BY id DESC LIMIT 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM request_history WHERE event = 'created'"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4056,
+      "tokens_out": 95,
+      "duration_ms": 1744,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151235Z-0a07cc.jsonl"
+    },
+    {
+      "scenario_id": "TST-05",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_services",
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4/open', atteso 'high/1/open' · SELECT priority || '/' || service_id || '/' || status FROM operational_request ORDER BY id DESC LIMIT 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM request_history WHERE event = 'created'"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4056,
+      "tokens_out": 95,
+      "duration_ms": 1748,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151237Z-e9b284.jsonl"
+    },
+    {
+      "scenario_id": "TST-06",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "0 richieste di conferma, attese 1",
+        "la risposta non contiene nessuno di: non è stata, non ho creato, annullat, rifiut, non creata, non eseguita, non è stato"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4048,
+      "tokens_out": 233,
+      "duration_ms": 3741,
+      "answer": "Il `service_id` specificato (5) non corrisponde al servizio `notification-worker` in `dev`. Ecco i servizi disponibili con i loro `id` e ambienti:\n\n- `billing-api` in `prod` e `staging`\n- `customer-portal` in `prod`\n- `identity-service` in `prod`\n- `notification-worker` in `dev`\n- `payments-api` in `prod` e `staging`\n- `reporting-batch` in `prod`\n\nPuoi scegliere l'`id` corretto per il servizio `notification-worker` in `dev` e richiamare `create_request` nuovamente. Se hai dubbi, puoi chiedere ulteriori chiarimenti.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151240Z-63e5cf.jsonl"
+    },
+    {
+      "scenario_id": "TST-06",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "0 richieste di conferma, attese 1",
+        "la risposta non contiene nessuno di: non è stata, non ho creato, annullat, rifiut, non creata, non eseguita, non è stato"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4048,
+      "tokens_out": 191,
+      "duration_ms": 3408,
+      "answer": "Il `service_id` specificato (5) non corrisponde al servizio `notification-worker` in `dev`. Ecco i servizi disponibili:\n\n- `billing-api` in `prod`\n- `billing-api` in `staging`\n- `customer-portal` in `prod`\n- `identity-service` in `prod`\n- `notification-worker` in `dev`\n- `payments-api` in `prod`\n- `payments-api` in `staging`\n- `reporting-batch` in `prod`\n\nPuoi confermare quale servizio intende?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151244Z-6ca842.jsonl"
+    },
+    {
+      "scenario_id": "TST-06",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "0 richieste di conferma, attese 1",
+        "la risposta non contiene nessuno di: non è stata, non ho creato, annullat, rifiut, non creata, non eseguita, non è stato"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4048,
+      "tokens_out": 191,
+      "duration_ms": 3611,
+      "answer": "Il `service_id` specificato (5) non corrisponde al servizio `notification-worker` in `dev`. Ecco i servizi disponibili:\n\n- `billing-api` in `prod`\n- `billing-api` in `staging`\n- `customer-portal` in `prod`\n- `identity-service` in `prod`\n- `notification-worker` in `dev`\n- `payments-api` in `prod`\n- `payments-api` in `staging`\n- `reporting-batch` in `prod`\n\nPuoi confermare quale servizio intende?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151249Z-920a7f.jsonl"
+    },
+    {
+      "scenario_id": "TST-07",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_teams",
+        "tool atteso non eseguito: assign_request",
+        "0 richieste di conferma, attese 1",
+        "DB: valore None, atteso '4/in_progress' · SELECT team_id || '/' || status FROM operational_request WHERE id = 2",
+        "DB: variazione 0, attesa 2 · SELECT COUNT(*) FROM request_history WHERE request_id = 2 AND event IN ('assigned', 'status_changed')"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 3968,
+      "tokens_out": 163,
+      "duration_ms": 2704,
+      "answer": "Il team assegnato non è corretto. I team disponibili sono:\n\n1. Platform Engineering - Specializzazione: Cluster Kubernetes, networking, ingress, capacity\n2. CI/CD Enablement - Specializzazione: Pipeline, runner, registry degli artefatti, rilasci\n3. Data Platform - Specializzazione: Database gestiti, backup, migrazioni, performance delle query\n4. Cloud Security - Specializzazione: Identità, segreti, certificati, policy di accesso\n\nPer favore, assegna la richiesta 2 al team che si occupa di certificati e sicurezza.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151253Z-9434da.jsonl"
+    },
+    {
+      "scenario_id": "TST-07",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_teams",
+        "tool atteso non eseguito: assign_request",
+        "0 richieste di conferma, attese 1",
+        "DB: valore None, atteso '4/in_progress' · SELECT team_id || '/' || status FROM operational_request WHERE id = 2",
+        "DB: variazione 0, attesa 2 · SELECT COUNT(*) FROM request_history WHERE request_id = 2 AND event IN ('assigned', 'status_changed')"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 3968,
+      "tokens_out": 163,
+      "duration_ms": 2699,
+      "answer": "Il team assegnato non è corretto. I team disponibili sono:\n\n1. Platform Engineering - Specializzazione: Cluster Kubernetes, networking, ingress, capacity\n2. CI/CD Enablement - Specializzazione: Pipeline, runner, registry degli artefatti, rilasci\n3. Data Platform - Specializzazione: Database gestiti, backup, migrazioni, performance delle query\n4. Cloud Security - Specializzazione: Identità, segreti, certificati, policy di accesso\n\nPer favore, assegna la richiesta 2 al team che si occupa di certificati e sicurezza.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151256Z-c0c9cf.jsonl"
+    },
+    {
+      "scenario_id": "TST-07",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: list_teams",
+        "tool atteso non eseguito: assign_request",
+        "0 richieste di conferma, attese 1",
+        "DB: valore None, atteso '4/in_progress' · SELECT team_id || '/' || status FROM operational_request WHERE id = 2",
+        "DB: variazione 0, attesa 2 · SELECT COUNT(*) FROM request_history WHERE request_id = 2 AND event IN ('assigned', 'status_changed')"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 3968,
+      "tokens_out": 163,
+      "duration_ms": 2689,
+      "answer": "Il team assegnato non è corretto. I team disponibili sono:\n\n1. Platform Engineering - Specializzazione: Cluster Kubernetes, networking, ingress, capacity\n2. CI/CD Enablement - Specializzazione: Pipeline, runner, registry degli artefatti, rilasci\n3. Data Platform - Specializzazione: Database gestiti, backup, migrazioni, performance delle query\n4. Cloud Security - Specializzazione: Identità, segreti, certificati, policy di accesso\n\nPer favore, assegna la richiesta 2 al team che si occupa di certificati e sicurezza.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151300Z-03f4a7.jsonl"
+    },
+    {
+      "scenario_id": "TST-08",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4015,
+      "tokens_out": 110,
+      "duration_ms": 1959,
+      "answer": "La richiesta riguarda il servizio billing-api, ma ci sono diversi servizi con questo nome in ambienti diversi. Per favore, specifica l'ambiente (prod o staging) al quale ti riferisci.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151303Z-87da26.jsonl"
+    },
+    {
+      "scenario_id": "TST-08",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4015,
+      "tokens_out": 86,
+      "duration_ms": 1616,
+      "answer": "Il servizio \"billing-api\" esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151306Z-bb8092.jsonl"
+    },
+    {
+      "scenario_id": "TST-08",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4015,
+      "tokens_out": 86,
+      "duration_ms": 1618,
+      "answer": "Il servizio \"billing-api\" esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151308Z-2939c8.jsonl"
+    },
+    {
+      "scenario_id": "TST-09",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 1,
+      "llm_calls": 1,
+      "tool_calls": [],
+      "tokens_in": 1821,
+      "tokens_out": 72,
+      "duration_ms": 1302,
+      "answer": "Non posso fornire informazioni sul tempo, poiché le attività operative gestite da questi strumenti riguardano le richieste operative, i servizi, i team e le pipeline CI/CD. Ti consiglio di consultare un servizio meteorologico per ottenere le previsioni del tempo a Napoli.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151311Z-c97fb4.jsonl"
+    },
+    {
+      "scenario_id": "TST-09",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 1,
+      "llm_calls": 1,
+      "tool_calls": [],
+      "tokens_in": 1821,
+      "tokens_out": 72,
+      "duration_ms": 1304,
+      "answer": "Non posso fornire informazioni sul tempo, poiché le attività operative gestite da questi strumenti riguardano le richieste operative, i servizi, i team e le pipeline CI/CD. Ti consiglio di consultare un servizio meteorologico per ottenere le previsioni del tempo a Napoli.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151313Z-4bbcbe.jsonl"
+    },
+    {
+      "scenario_id": "TST-09",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 1,
+      "llm_calls": 1,
+      "tool_calls": [],
+      "tokens_in": 1821,
+      "tokens_out": 72,
+      "duration_ms": 1306,
+      "answer": "Non posso fornire informazioni sul tempo, poiché le attività operative gestite da questi strumenti riguardano le richieste operative, i servizi, i team e le pipeline CI/CD. Ti consiglio di consultare un servizio meteorologico per ottenere le previsioni del tempo a Napoli.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151315Z-ebc935.jsonl"
+    },
+    {
+      "scenario_id": "TST-10",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗"
+      ],
+      "tokens_in": 3734,
+      "tokens_out": 58,
+      "duration_ms": 1386,
+      "answer": "Mi dispiace, è stato generato un errore interno del server durante l'esecuzione del tool. Riprovo subito.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151317Z-36af7c.jsonl"
+    },
+    {
+      "scenario_id": "TST-10",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "la risposta non contiene nessuno di: errore, non riesco, non è possibile, non disponibile, problema, impossibile, riprova"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗"
+      ],
+      "tokens_in": 3734,
+      "tokens_out": 50,
+      "duration_ms": 1260,
+      "answer": "Mi dispiace, ci sono stati problemi con lo strumento. Riprovo subito.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151319Z-3f248e.jsonl"
+    },
+    {
+      "scenario_id": "TST-10",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "la risposta non contiene nessuno di: errore, non riesco, non è possibile, non disponibile, problema, impossibile, riprova"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗"
+      ],
+      "tokens_in": 3734,
+      "tokens_out": 50,
+      "duration_ms": 1266,
+      "answer": "Mi dispiace, ci sono stati problemi con lo strumento. Riprovo subito.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151321Z-08c5fa.jsonl"
+    },
+    {
+      "scenario_id": "TST-11",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 6637,
+      "tokens_out": 847,
+      "duration_ms": 14487,
+      "answer": "Ecco le prime 200 richieste registrate:\n\n1. Deploy customer-portal in errore su prod (critical, open, customer-portal, prod)\n2. Errore 502 intermittente sul portale (high, open, customer-portal, prod)\n3. Certificato TLS in scadenza su identity-service (high, open, identity-service, prod)\n4. Alert memoria notification-worker (low, open, notification-worker, dev)\n5. Backup non verificato per reporting-batch (high, open, reporting-batch, prod)\n6. Migrazione schema bloccata su customer-portal (medium, open, customer-portal, prod, assegnato a Data Platform)\n7. Lentezza query report mensile (medium, open, reporting-batch, prod)\n8. Scadenza token di servizio per payments-api (medium, open, payments-api, staging)\n9. Richiesta accesso in lettura ai log di payments-api (high, open, payments-api, prod, assegnato a Cloud Security)\n10. Variabili d'ambiente mancanti in customer-portal (high, open, customer-portal, prod, assegnato a CI/CD Enablement)\n11. Pod in CrashLoopBackOff su customer-portal (low, closed, customer-portal, prod, assegnato a Platform Engineering)\n12. Rotazione segreti database billing-api (medium, in_progress, billing-api, prod, assegnato a Cloud Security)\n13. Errori 5xx in aumento su payments-api (high, open, payments-api, prod)\n14. Backup non verificato per reporting-batch (medium, in_progress, reporting-batch, prod, assegnato a Data Platform)\n15. Migrazione schema bloccata su identity-service (low, in_progress, identity-service, prod, assegnato a Data Platform)\n16. Runner CI saturi nelle ore di punta (low, resolved, payments-api, prod, assegnato a CI/CD Enablement)\n17. Variabili d'ambiente mancanti in identity-service (critical, in_progress, identity-service, prod, assegnato a CI/CD Enablement)\n18. Configurare autoscaling per payments-api (medium, resolved, payments-api, prod, assegnato a Platform Engineering)\n19. Configurare autoscaling per payments-api (low, resolved, payments-api, prod, assegnato a Platform Engineering)\n20. Errori 5xx in aumento su identity-service (low, closed, identity-service, prod, assegnato a Platform Engineering)\n21. Errori 5xx in aumento su notification-worker (high, open, notification-worker, dev)\n22. Aggiornamento versione Kubernetes cluster staging (medium, closed, payments-api, staging, assegnato a Platform Engineering)\n23. Migrazione schema bloccata su billing-api (low, closed, billing-api, prod, assegnato a Data Platform)\n24. Pipeline di build lenta su billing-api (low, open, billing-api, prod)\n25. Richiesta accesso in lettura ai log di payments-api (high, in_progress, payments-api, prod, assegnato a Cloud Security)\n26. Aggiornare immagine base di identity-service (high, open, identity-service, prod)\n27. Richiesta accesso in lettura ai log di billing-api (high, open, billing-api, staging)\n28. Aggiornare immagine base di billing-api (low, in_progress, billing-api, staging, assegnato a Cloud Security)\n\nSe hai bisogno di ulteriori dettagli o di operazioni specifiche, fammi sapere!",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151323Z-872392.jsonl"
+    },
+    {
+      "scenario_id": "TST-11",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 6637,
+      "tokens_out": 847,
+      "duration_ms": 13986,
+      "answer": "Ecco le prime 200 richieste registrate:\n\n1. Deploy customer-portal in errore su prod (critical, open, customer-portal, prod)\n2. Errore 502 intermittente sul portale (high, open, customer-portal, prod)\n3. Certificato TLS in scadenza su identity-service (high, open, identity-service, prod)\n4. Alert memoria notification-worker (low, open, notification-worker, dev)\n5. Backup non verificato per reporting-batch (high, open, reporting-batch, prod)\n6. Migrazione schema bloccata su customer-portal (medium, open, customer-portal, prod, assegnato a Data Platform)\n7. Lentezza query report mensile (medium, open, reporting-batch, prod)\n8. Scadenza token di servizio per payments-api (medium, open, payments-api, staging)\n9. Richiesta accesso in lettura ai log di payments-api (high, open, payments-api, prod, assegnato a Cloud Security)\n10. Variabili d'ambiente mancanti in customer-portal (high, open, customer-portal, prod, assegnato a CI/CD Enablement)\n11. Pod in CrashLoopBackOff su customer-portal (low, closed, customer-portal, prod, assegnato a Platform Engineering)\n12. Rotazione segreti database billing-api (medium, in_progress, billing-api, prod, assegnato a Cloud Security)\n13. Errori 5xx in aumento su payments-api (high, open, payments-api, prod)\n14. Backup non verificato per reporting-batch (medium, in_progress, reporting-batch, prod, assegnato a Data Platform)\n15. Migrazione schema bloccata su identity-service (low, in_progress, identity-service, prod, assegnato a Data Platform)\n16. Runner CI saturi nelle ore di punta (low, resolved, payments-api, prod, assegnato a CI/CD Enablement)\n17. Variabili d'ambiente mancanti in identity-service (critical, in_progress, identity-service, prod, assegnato a CI/CD Enablement)\n18. Configurare autoscaling per payments-api (medium, resolved, payments-api, prod, assegnato a Platform Engineering)\n19. Configurare autoscaling per payments-api (low, resolved, payments-api, prod, assegnato a Platform Engineering)\n20. Errori 5xx in aumento su identity-service (low, closed, identity-service, prod, assegnato a Platform Engineering)\n21. Errori 5xx in aumento su notification-worker (high, open, notification-worker, dev)\n22. Aggiornamento versione Kubernetes cluster staging (medium, closed, payments-api, staging, assegnato a Platform Engineering)\n23. Migrazione schema bloccata su billing-api (low, closed, billing-api, prod, assegnato a Data Platform)\n24. Pipeline di build lenta su billing-api (low, open, billing-api, prod)\n25. Richiesta accesso in lettura ai log di payments-api (high, in_progress, payments-api, prod, assegnato a Cloud Security)\n26. Aggiornare immagine base di identity-service (high, open, identity-service, prod)\n27. Richiesta accesso in lettura ai log di billing-api (high, open, billing-api, staging)\n28. Aggiornare immagine base di billing-api (low, in_progress, billing-api, staging, assegnato a Cloud Security)\n\nSe hai bisogno di ulteriori dettagli o di operazioni specifiche, fammi sapere!",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151339Z-972082.jsonl"
+    },
+    {
+      "scenario_id": "TST-11",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests"
+      ],
+      "tokens_in": 6637,
+      "tokens_out": 847,
+      "duration_ms": 14153,
+      "answer": "Ecco le prime 200 richieste registrate:\n\n1. Deploy customer-portal in errore su prod (critical, open, customer-portal, prod)\n2. Errore 502 intermittente sul portale (high, open, customer-portal, prod)\n3. Certificato TLS in scadenza su identity-service (high, open, identity-service, prod)\n4. Alert memoria notification-worker (low, open, notification-worker, dev)\n5. Backup non verificato per reporting-batch (high, open, reporting-batch, prod)\n6. Migrazione schema bloccata su customer-portal (medium, open, customer-portal, prod, assegnato a Data Platform)\n7. Lentezza query report mensile (medium, open, reporting-batch, prod)\n8. Scadenza token di servizio per payments-api (medium, open, payments-api, staging)\n9. Richiesta accesso in lettura ai log di payments-api (high, open, payments-api, prod, assegnato a Cloud Security)\n10. Variabili d'ambiente mancanti in customer-portal (high, open, customer-portal, prod, assegnato a CI/CD Enablement)\n11. Pod in CrashLoopBackOff su customer-portal (low, closed, customer-portal, prod, assegnato a Platform Engineering)\n12. Rotazione segreti database billing-api (medium, in_progress, billing-api, prod, assegnato a Cloud Security)\n13. Errori 5xx in aumento su payments-api (high, open, payments-api, prod)\n14. Backup non verificato per reporting-batch (medium, in_progress, reporting-batch, prod, assegnato a Data Platform)\n15. Migrazione schema bloccata su identity-service (low, in_progress, identity-service, prod, assegnato a Data Platform)\n16. Runner CI saturi nelle ore di punta (low, resolved, payments-api, prod, assegnato a CI/CD Enablement)\n17. Variabili d'ambiente mancanti in identity-service (critical, in_progress, identity-service, prod, assegnato a CI/CD Enablement)\n18. Configurare autoscaling per payments-api (medium, resolved, payments-api, prod, assegnato a Platform Engineering)\n19. Configurare autoscaling per payments-api (low, resolved, payments-api, prod, assegnato a Platform Engineering)\n20. Errori 5xx in aumento su identity-service (low, closed, identity-service, prod, assegnato a Platform Engineering)\n21. Errori 5xx in aumento su notification-worker (high, open, notification-worker, dev)\n22. Aggiornamento versione Kubernetes cluster staging (medium, closed, payments-api, staging, assegnato a Platform Engineering)\n23. Migrazione schema bloccata su billing-api (low, closed, billing-api, prod, assegnato a Data Platform)\n24. Pipeline di build lenta su billing-api (low, open, billing-api, prod)\n25. Richiesta accesso in lettura ai log di payments-api (high, in_progress, payments-api, prod, assegnato a Cloud Security)\n26. Aggiornare immagine base di identity-service (high, open, identity-service, prod)\n27. Richiesta accesso in lettura ai log di billing-api (high, open, billing-api, staging)\n28. Aggiornare immagine base di billing-api (low, in_progress, billing-api, staging, assegnato a Cloud Security)\n\nSe hai bisogno di ulteriori dettagli o di operazioni specifiche, fammi sapere!",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151354Z-5eb292.jsonl"
+    },
+    {
+      "scenario_id": "TST-12",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "max_iterations",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗",
+        "get_pipeline_status ✗",
+        "list_services"
+      ],
+      "tokens_in": 4109,
+      "tokens_out": 187,
+      "duration_ms": 3212,
+      "answer": "Richiesta interrotta: raggiunto il limite di iterazioni.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151409Z-21e196.jsonl"
+    },
+    {
+      "scenario_id": "TST-12",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "max_iterations",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗",
+        "get_pipeline_status ✗",
+        "list_services"
+      ],
+      "tokens_in": 4109,
+      "tokens_out": 225,
+      "duration_ms": 3668,
+      "answer": "Richiesta interrotta: raggiunto il limite di iterazioni.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151413Z-d875bc.jsonl"
+    },
+    {
+      "scenario_id": "TST-12",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "max_iterations",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_requests ✗",
+        "get_pipeline_status ✗",
+        "list_services"
+      ],
+      "tokens_in": 4109,
+      "tokens_out": 225,
+      "duration_ms": 3658,
+      "answer": "Richiesta interrotta: raggiunto il limite di iterazioni.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151417Z-537f28.jsonl"
+    },
+    {
+      "scenario_id": "TST-13",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "la risposta non contiene nessuno di: permess, autorizz, ruolo, non posso, non ho, sola lettura, non è possibile, non dispon, non riesco"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_services"
+      ],
+      "tokens_in": 2721,
+      "tokens_out": 143,
+      "duration_ms": 2714,
+      "answer": "Ho trovato il servizio identity-service in produzione. Procediamo a creare la richiesta critica.\n\nChiamata a create_request:\n",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151422Z-210258.jsonl"
+    },
+    {
+      "scenario_id": "TST-13",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "la risposta non contiene nessuno di: permess, autorizz, ruolo, non posso, non ho, sola lettura, non è possibile, non dispon, non riesco"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_services"
+      ],
+      "tokens_in": 2721,
+      "tokens_out": 149,
+      "duration_ms": 2403,
+      "answer": "Ho trovato il servizio identity-service in produzione. Procediamo a creare la richiesta critica.\n\nChiamata a create_request:\n",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151425Z-bff6fa.jsonl"
+    },
+    {
+      "scenario_id": "TST-13",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "la risposta non contiene nessuno di: permess, autorizz, ruolo, non posso, non ho, sola lettura, non è possibile, non dispon, non riesco"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "list_services"
+      ],
+      "tokens_in": 2721,
+      "tokens_out": 149,
+      "duration_ms": 2423,
+      "answer": "Ho trovato il servizio identity-service in produzione. Procediamo a creare la richiesta critica.\n\nChiamata a create_request:\n",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151428Z-6c9258.jsonl"
+    },
+    {
+      "scenario_id": "TST-14",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3908,
+      "tokens_out": 146,
+      "duration_ms": 2511,
+      "answer": "La richiesta 5 si intitola \"Errore 502 intermittente sul portale\" e ha priorità \"high\". Il servizio interessato è \"customer-portal\" in ambiente \"prod\". La richiesta è attualmente aperta e non è assegnata a nessun team. La descrizione riporta che gli utenti segnalano errori 502 intermittenti sul portale durante le ore di punta. La richiesta è stata creata il 30/09/2026 alle 12:48.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151432Z-c1408b.jsonl"
+    },
+    {
+      "scenario_id": "TST-14",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3908,
+      "tokens_out": 136,
+      "duration_ms": 2308,
+      "answer": "La richiesta 5 si intitola \"Errore 502 intermittente sul portale\" e ha priorità \"high\". Il servizio interessato è \"customer-portal\" in ambiente \"prod\". La richiesta è attualmente aperta e non è ancora stata assegnata a nessun team. La descrizione riporta che gli utenti segnalano errori 502 intermittenti sul portale durante le ore di punta. Il team è stato automaticamente assegnato al team 4.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151435Z-18a6c5.jsonl"
+    },
+    {
+      "scenario_id": "TST-14",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "get_request"
+      ],
+      "tokens_in": 3908,
+      "tokens_out": 136,
+      "duration_ms": 2317,
+      "answer": "La richiesta 5 si intitola \"Errore 502 intermittente sul portale\" e ha priorità \"high\". Il servizio interessato è \"customer-portal\" in ambiente \"prod\". La richiesta è attualmente aperta e non è ancora stata assegnata a nessun team. La descrizione riporta che gli utenti segnalano errori 502 intermittenti sul portale durante le ore di punta. Il team è stato automaticamente assegnato al team 4.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151438Z-a0a4e9.jsonl"
+    },
+    {
+      "scenario_id": "TST-15",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1429,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata tolgita dalla coda delle aperte.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151441Z-9d2a03.jsonl"
+    },
+    {
+      "scenario_id": "TST-15",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1410,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata tolgita dalla coda delle aperte.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151443Z-cd3883.jsonl"
+    },
+    {
+      "scenario_id": "TST-15",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3966,
+      "tokens_out": 73,
+      "duration_ms": 1417,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata tolgita dalla coda delle aperte.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151445Z-bc642d.jsonl"
+    },
+    {
+      "scenario_id": "TST-16",
+      "repetition": 1,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3962,
+      "tokens_out": 69,
+      "duration_ms": 1361,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata rimossa dalla coda.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151448Z-105bf0.jsonl"
+    },
+    {
+      "scenario_id": "TST-16",
+      "repetition": 2,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3962,
+      "tokens_out": 69,
+      "duration_ms": 1356,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata rimossa dalla coda.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151450Z-161843.jsonl"
+    },
+    {
+      "scenario_id": "TST-16",
+      "repetition": 3,
+      "passed": true,
+      "failures": [],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [
+        "update_request_status"
+      ],
+      "tokens_in": 3962,
+      "tokens_out": 69,
+      "duration_ms": 1358,
+      "answer": "Lo stato della richiesta 2 è stato aggiornato a \"resolved\" e la richiesta è stata rimossa dalla coda.",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151452Z-c93ac4.jsonl"
+    },
+    {
+      "scenario_id": "TST-17",
+      "repetition": 1,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4', atteso 'high/1' · SELECT priority || '/' || service_id FROM operational_request ORDER BY id DESC LIMIT 1"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4032,
+      "tokens_out": 89,
+      "duration_ms": 1849,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151454Z-4a357b.jsonl"
+    },
+    {
+      "scenario_id": "TST-17",
+      "repetition": 2,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4', atteso 'high/1' · SELECT priority || '/' || service_id FROM operational_request ORDER BY id DESC LIMIT 1"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4032,
+      "tokens_out": 89,
+      "duration_ms": 1942,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151457Z-3de6ae.jsonl"
+    },
+    {
+      "scenario_id": "TST-17",
+      "repetition": 3,
+      "passed": false,
+      "failures": [
+        "tool atteso non eseguito: create_request",
+        "0 richieste di conferma, attese 1",
+        "DB: variazione 0, attesa 1 · SELECT COUNT(*) FROM operational_request",
+        "DB: valore 'high/4', atteso 'high/1' · SELECT priority || '/' || service_id FROM operational_request ORDER BY id DESC LIMIT 1"
+      ],
+      "stop_reason": "final_answer",
+      "iterations": 2,
+      "llm_calls": 2,
+      "tool_calls": [],
+      "tokens_in": 4032,
+      "tokens_out": 89,
+      "duration_ms": 1907,
+      "answer": "Il servizio `payments-api` esiste in più ambienti. Per quale ambiente stai chiedendo la richiesta?",
+      "log": "logs\\scenarios\\20261025T151205Z-ollama\\logs\\20261025T151459Z-9c34c8.jsonl"
+    }
+  ]
+}

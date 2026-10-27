@@ -1,0 +1,17 @@
+id = "TST-01"
+title = "Elenco delle richieste critiche aperte"
+category = "lettura"
+request = "Quali richieste critiche sono ancora aperte?"
+expected = "L'agente usa list_requests con filtri status=open e priority=critical e riporta l'unica richiesta critica aperta (#1, customer-portal), senza scritture."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["list_requests"]
+tools_not_called = ["create_request", "assign_request"]
+answer_any = ["customer-portal"]
+
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { status = "open", priority = "critical" } }]
+
+[[script]]
+text = "È aperta una sola richiesta critica: #1 «Deploy customer-portal in errore su prod», non ancora assegnata."

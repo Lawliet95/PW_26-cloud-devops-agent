@@ -1,0 +1,17 @@
+id = "TST-02"
+title = "Dettaglio di una richiesta esistente"
+category = "lettura"
+request = "Mostrami il dettaglio della richiesta 3 e dimmi quale team se ne sta occupando."
+expected = "L'agente usa get_request con request_id=3 e riporta titolo, stato in_progress e il team Cloud Security."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["get_request"]
+tools_not_called = ["create_request", "assign_request"]
+answer_any = ["Cloud Security"]
+
+[[script]]
+tool_calls = [{ name = "get_request", arguments = { request_id = 3 } }]
+
+[[script]]
+text = "La richiesta 3 «Rotazione segreti database billing-api» è in lavorazione (in_progress), priorità media, assegnata al team Cloud Security."

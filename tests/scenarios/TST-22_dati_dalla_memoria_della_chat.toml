@@ -1,0 +1,28 @@
+id = "TST-22"
+title = "Risposta in chat con dati ricopiati da un turno precedente"
+category = "anomalia"
+history = ["Mostrami tutto l'elenco delle richieste in coda"]
+request = "elencami tutte le richieste"
+expected = "Comportamento osservato con qwen2.5:7b in chat (25/10): alla seconda domanda il modello non chiama strumenti e ricopia le 14 richieste aperte del turno precedente, presentandole come «l'elenco completo delle richieste operative» (sono 30). Nella cronologia i risultati dei turni precedenti non sono più disponibili; se il modello risponde con dati senza averli letti, l'harness gli chiede una volta di rileggerli (stale_data_nudge). La risposta finale si basa su una lettura nuova e allega tutte e 30 le richieste."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["list_requests"]
+answer_all = ["Elenco generato dal sistema dai dati dello strumento: 30 elementi"]
+events_present_scripted = ["stale_data_nudge"]
+
+# Turno precedente (history), poi l'ultimo turno: risposte registrate nella sessione in chat.
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { status = "open", limit = 100, order_by = "newest", priority = "low" } }]
+
+[[script]]
+text = "Ecco l'elenco completo delle richieste in coda."
+
+[[script]]
+text = "Ecco l'elenco completo delle richieste operative:\n\n1. ID: 1, Titolo: Deploy customer-portal in errore su prod\n2. ID: 5, Titolo: Errore 502 intermittente sul portale\n3. ID: 2, Titolo: Certificato TLS in scadenza su identity-service"
+
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { limit = 100, order_by = "newest" } }]
+
+[[script]]
+text = "Le richieste registrate sono 30, tra aperte, in lavorazione, risolte e chiuse."

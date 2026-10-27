@@ -1,0 +1,59 @@
+@startuml sequence-write
+!include _style.iuml
+title Diagramma di sequenza · ciclo agentico con un tool di scrittura
+autonumber
+
+actor Operatore
+participant "CLI" as CLI
+participant "run_agent\n(harness)" as Loop
+participant "LLMProvider" as LLM
+participant "McpToolExecutor\n(client MCP)" as Client
+participant "Server MCP" as Server
+database "SQLite" as DB
+participant "RunLogger" as Log
+
+Operatore -> CLI : "Apri una richiesta ad alta priorità\nper payments-api in produzione: ..."
+CLI -> Loop : run_agent(richiesta, tool visibili al ruolo)
+Loop -> Log : run_start
+
+loop finché il modello chiede tool e iterazioni < max_iterations
+  Loop -> LLM : generate(messaggi, tool)
+  LLM --> Loop : tool_calls = [list_services(...)]
+  Loop -> Log : llm_response (token)
+  Loop -> Loop : verifica tool e valida argomenti (JSON Schema)
+  Loop -> Client : call_tool("list_services", args)
+  Client -> Server : tools/call
+  Server -> DB : SELECT
+  Server --> Client : risultato
+  Client --> Loop : ToolOutcome(ok)
+  Loop -> Log : tool_call, tool_result
+
+  Loop -> LLM : generate(messaggi + risultato, tool)
+  LLM --> Loop : tool_calls = [create_request(title, ..., service_id=1)]
+  Loop -> Loop : valida argomenti; create_request è di scrittura
+  Loop -> CLI : confirm("create_request", args)
+  CLI -> Operatore : riepilogo dei parametri esatti
+  alt l'operatore conferma
+    Operatore --> CLI : sì
+    CLI --> Loop : True
+    Loop -> Log : confirmation (approved = true)
+    Loop -> Client : call_tool("create_request", args)
+    Client -> Server : tools/call
+    Server -> DB : INSERT richiesta + storico (transazione)
+    Server --> Client : RequestDetail
+    Client --> Loop : ToolOutcome(ok)
+    Loop -> Log : tool_call, tool_result
+  else l'operatore nega
+    Operatore --> CLI : no
+    CLI --> Loop : False
+    Loop -> Log : confirmation (approved = false)
+    note right of Loop : il tool NON viene invocato;\nal modello torna OPERAZIONE_RIFIUTATA
+  end
+  Loop -> LLM : generate(messaggi + esito, tool)
+  LLM --> Loop : testo finale, nessun tool
+end
+
+Loop -> Log : stop (final_answer, iterazioni, token)
+Loop --> CLI : RunResult
+CLI --> Operatore : risposta
+@enduml

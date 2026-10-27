@@ -1,0 +1,71 @@
+@startuml activity-loop
+!include _style.iuml
+title Ciclo agentico · condizioni di arresto e controlli per ogni chiamata
+
+start
+:Costruisci i messaggi:\nprompt di sistema, storico, richiesta;
+:Mostra al modello solo i tool\nconsentiti al ruolo;
+while (iterazione < max_iterations?) is (sì)
+  :Invia messaggi e tool al modello;
+  if (errore del provider?) then (sì)
+    :stop = provider_error;
+    stop
+  endif
+  if (nessuna chiamata a tool e il testo è\ninteramente una chiamata JSON a un tool\ndel catalogo?) then (sì)
+    :Tratta il testo come chiamata\n(text_tool_call_parsed);
+  endif
+  :Aggiungi il messaggio dell'assistente;
+  if (nessuna chiamata a tool?) then (sì)
+    if (testo vuoto?) then (sì)
+      :stop = empty_response;
+    else (no)
+      :stop = final_answer;
+      note right
+        Prima di fermarsi: se un ID_NON_VERIFICATO
+        ha un unico valore coerente con la richiesta
+        e il modello non l'ha usato, l'harness aggiunge
+        un messaggio di sistema con la correzione e
+        richiama il modello, una sola volta.
+        Se il modello ha proposto scritture e nessuna
+        è riuscita, alla risposta si aggiunge la nota
+        "nessuna operazione di scrittura eseguita".
+        Gli elenchi oltre 10 elementi letti nel turno
+        sono allegati come tabella generata dai dati.
+      end note
+    endif
+    stop
+  endif
+  if (token oltre il budget?) then (sì)
+    :stop = token_budget;
+    stop
+  endif
+  repeat :Prendi la prossima chiamata;
+    if (tool sconosciuto o non consentito?) then (sì)
+      :errore TOOL_NON_DISPONIBILE al modello;
+    elseif (seconda scrittura\nnello stesso turno?) then (sì)
+      :errore UNA_SCRITTURA_PER_TURNO al modello;
+    elseif (parametri non previsti o\nnon validi per lo schema?\n(letture: numeri ricondotti ai limiti)) then (sì)
+      :errore PARAMETRI_NON_VALIDI al modello;
+    elseif (stessa chiamata ripetuta\noltre il limite?) then (sì)
+      :stop = loop_detected;
+      stop
+    elseif (scrittura con id non verificato\ne diverso dall'unico nominato\nnella richiesta?) then (sì)
+      :l'harness legge servizi o team;
+      :errore ID_NON_VERIFICATO con il valore\ncoerente o i candidati al modello;
+    elseif (scrittura con priorità diversa\nda quella detta dall'utente?) then (sì)
+      :errore PARAMETRO_INCOERENTE\ncon il valore indicato;
+    elseif (tool di scrittura e\nconferma negata?) then (sì)
+      :errore OPERAZIONE_RIFIUTATA al modello;
+    else (no)
+      :Esegui via MCP con timeout\n(lettura con guasto temporaneo:\nun nuovo tentativo, tool_retry);
+      :Risultato o errore\n(NOT_FOUND, TIMEOUT, TOOL_FALLITO...) al modello;
+    endif
+  repeat while (altre chiamate nel turno?) is (sì)
+  if (troppi argomenti non validi?) then (sì)
+    :stop = invalid_arguments;
+    stop
+  endif
+endwhile (no)
+:stop = max_iterations;
+stop
+@enduml

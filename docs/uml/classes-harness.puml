@@ -1,0 +1,104 @@
+@startuml classes-harness
+!include _style.iuml
+title Diagramma delle classi · harness agentico
+hide empty members
+skinparam linetype ortho
+
+package "devops_agent.agent" {
+  class AgentSession {
+    +cfg: Config
+    +policy: Policy
+    +provider: LLMProvider
+    +executor: McpToolExecutor
+    +tools: list[ToolSpec]
+    +ask(request, confirm, logger, history): RunResult
+    +new_logger(log_dir, context): RunLogger
+  }
+
+  class "loop" as Loop <<module>> {
+    +run_agent(user_request, llm, tools, executor, confirm, logger, system_prompt, limits, history): RunResult
+    -_handle_call(call, state, catalog, executor, confirm, logger, limits): str
+  }
+
+  class Policy {
+    +role: str
+    +read_tools: frozenset
+    +write_tools: frozenset
+    +allowed: frozenset
+    +classify(name): str
+    +build_catalog(remote_tools): (list[ToolSpec], dict)
+    +describe_effect(name, args): str
+  }
+
+  interface LLMProvider {
+    +name: str
+    +model: str
+    +generate(messages, tools): LLMResponse
+    +aclose()
+  }
+  class OllamaProvider
+  class OpenAICompatProvider
+  class ScriptedProvider
+
+  interface ToolExecutor {
+    +call_tool(name, args): ToolOutcome
+  }
+  class McpToolExecutor {
+    +list_tools(): list[RemoteTool]
+    +call_tool(name, args): ToolOutcome
+  }
+
+  class RunLogger {
+    +run_id: str
+    +events: list[dict]
+    +listeners: list
+    +event(kind, fields)
+  }
+
+  class ToolSpec <<dataclass>> {
+    name; description; input_schema; is_write
+  }
+  class ToolCall <<dataclass>> {
+    id; name; arguments
+  }
+  class LLMResponse <<dataclass>> {
+    text; tool_calls; tokens_in; tokens_out
+  }
+  class ToolOutcome <<dataclass>> {
+    ok; content; error_code
+  }
+  class Limits <<dataclass>> {
+    max_iterations; max_total_tokens
+    max_invalid_args; max_repeated_calls
+    max_tool_calls_per_turn; tool_timeout_s
+  }
+  class RunResult <<dataclass>> {
+    answer; stop_reason; iterations
+    llm_calls; tokens_in; tokens_out
+    executed; messages
+  }
+}
+
+package "mcp (SDK ufficiale)" {
+  class Client
+}
+
+AgentSession *-- Policy
+AgentSession *-- McpToolExecutor
+AgentSession o-- LLMProvider
+AgentSession ..> Loop : invoca
+Loop ..> LLMProvider : generate()
+Loop ..> ToolExecutor : call_tool()
+Loop ..> RunLogger : event()
+Loop ..> Limits
+Loop ..> RunResult : crea
+LLMProvider <|.. OllamaProvider
+LLMProvider <|.. OpenAICompatProvider
+LLMProvider <|.. ScriptedProvider
+ToolExecutor <|.. McpToolExecutor
+McpToolExecutor *-- Client
+LLMProvider ..> LLMResponse
+LLMResponse o-- ToolCall
+Policy ..> ToolSpec : crea
+McpToolExecutor ..> ToolOutcome
+@enduml

@@ -1,0 +1,30 @@
+id = "TST-05"
+title = "Creazione di una richiesta con conferma"
+category = "scrittura"
+request = "Apri una richiesta ad alta priorità per payments-api in produzione: la pipeline di build è lenta da due giorni e serve un'analisi dei runner."
+confirmations = [true]
+expected = "L'agente usa il servizio payments-api in produzione (id 1), ricavato con list_services o verificato dall'harness per corrispondenza con la richiesta; propone create_request con priorità high; dopo la conferma la richiesta è registrata in stato open con la voce 'created' nello storico."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["create_request"]
+tools_not_called = ["assign_request"]
+db = [
+  { sql = "SELECT COUNT(*) FROM operational_request", delta = 1 },
+  { sql = "SELECT priority || '/' || service_id || '/' || status FROM operational_request ORDER BY id DESC LIMIT 1", equals = "high/1/open" },
+  { sql = "SELECT COUNT(*) FROM request_history WHERE event = 'created'", delta = 1 },
+]
+
+# Lo script riproduce un comportamento osservato con qwen2.5:7b: il modello propone subito un
+# service_id inventato (5 = reporting-batch). L'harness lo blocca prima della conferma.
+[[script]]
+tool_calls = [{ name = "create_request", arguments = { title = "Build lenta su payments-api in produzione", description = "La pipeline di build è lenta da due giorni.", priority = "high", service_id = 5 } }]
+
+[[script]]
+tool_calls = [{ name = "list_services", arguments = { name_contains = "payments-api", environment = "prod" } }]
+
+[[script]]
+tool_calls = [{ name = "create_request", arguments = { title = "Build lenta su payments-api in produzione", description = "La pipeline di build è lenta da due giorni: serve un'analisi dei runner.", priority = "high", service_id = 1 } }]
+
+[[script]]
+text = "Ho creato la richiesta 31 «Build lenta su payments-api in produzione» con priorità alta, in stato open e non ancora assegnata."

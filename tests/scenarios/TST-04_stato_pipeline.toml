@@ -1,0 +1,20 @@
+id = "TST-04"
+title = "Consultazione dello stato di una pipeline"
+category = "lettura"
+request = "Com'è andato l'ultimo deploy di customer-portal in produzione?"
+expected = "L'agente ricava il service_id (con list_services oppure, se lo propone senza ricerca, con la correzione dell'harness sulle letture), usa get_pipeline_status e riporta che l'ultimo deploy è fallito per timeout di Helm."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["get_pipeline_status"]
+tools_not_called = ["create_request", "assign_request"]
+answer_any = ["fallit", "failed", "errore", "timeout"]
+
+[[script]]
+tool_calls = [{ name = "list_services", arguments = { name_contains = "customer-portal", environment = "prod" } }]
+
+[[script]]
+tool_calls = [{ name = "get_pipeline_status", arguments = { service_id = 3, pipeline_name = "deploy" } }]
+
+[[script]]
+text = "L'ultimo deploy di customer-portal in produzione è fallito: Helm upgrade in timeout per readiness probe fallita sul pod customer-portal-web (HTTP 503)."

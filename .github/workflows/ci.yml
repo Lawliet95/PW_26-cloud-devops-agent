@@ -1,0 +1,62 @@
+# Verifica a ogni push e pull request: stile, test automatici e scenari con risposte registrate
+# (provider scripted). Non usa il modello reale: in pochi minuti verifica che l'harness si comporti
+# come atteso. Gli scenari con il modello reale sono nel workflow scenari-modello.yml.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check src tests scripts
+      - run: ruff format --check src tests scripts
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: pytest --junitxml=report.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-report
+          path: report.xml
+
+  scenarios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: devops-agent --provider scripted scenarios --report scenario-report.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenari-scripted
+          path: |
+            scenario-report.md
+            logs/scenarios/

@@ -1,0 +1,28 @@
+id = "TST-17"
+title = "Id corretto proposto senza ricerca"
+category = "anomalia"
+request = "Apri una richiesta ad alta priorità per payments-api in produzione: la build fallisce per ImagePullBackOff."
+confirmations = [true]
+expected = "Comportamento osservato con qwen2.5:7b: il modello propone create_request con service_id=1 senza aver chiamato list_services e con priority=critical per una richiesta 'ad alta priorità' (esecuzioni 1-3, anche con la mappatura nella descrizione del parametro). L'id è verificato per corrispondenza; la priorità no: l'harness blocca la scrittura con PARAMETRO_INCOERENTE indicando priority=high. Il modello riprova (direttamente o dopo il nudge) e la richiesta viene creata una sola volta sul servizio 1 con priorità high."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["create_request"]
+confirmations = 1
+# Esecuzione 5: con la regola sulla priorità nel prompt il modello sceglie subito "high" e il
+# blocco non serve. Con un modello reale conta l'esito; il percorso di correzione lo verifica lo script.
+events_present_scripted = ["harness_lookup", "id_verified_by_match", "tool_arg_mismatch"]
+db = [
+  { sql = "SELECT COUNT(*) FROM operational_request", delta = 1 },
+  { sql = "SELECT priority || '/' || service_id FROM operational_request ORDER BY id DESC LIMIT 1", equals = "high/1" },
+]
+
+# Prima risposta registrata nell'esecuzione 3, poi il riprovo con la priorità indicata.
+[[script]]
+tool_calls = [{ name = "create_request", arguments = { title = "Build fallita per ImagePullBackOff", description = "La build della payments-api in produzione fallisce con errore ImagePullBackOff.", priority = "critical", service_id = 1 } }]
+
+[[script]]
+tool_calls = [{ name = "create_request", arguments = { title = "Build fallita per ImagePullBackOff", description = "La build della payments-api in produzione fallisce con errore ImagePullBackOff.", priority = "high", service_id = 1 } }]
+
+[[script]]
+text = "Ho creato la richiesta 31 su payments-api (prod) con priorità alta."

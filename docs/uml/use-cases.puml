@@ -1,0 +1,48 @@
+@startuml use-cases
+!include _style.iuml
+title Diagramma dei casi d'uso
+left to right direction
+
+actor "Utente in sola lettura\n(ruolo viewer)" as Viewer
+actor "Operatore DevOps\n(ruolo operator)" as Operator
+actor "Modello linguistico\n<<sistema esterno>>" as LLM
+Viewer <|-- Operator
+
+rectangle "Assistente agentico Cloud/DevOps" {
+  usecase "Interpretare la richiesta\nin linguaggio naturale" as UC0
+  usecase "Consultare le richieste\noperative" as UC1
+  usecase "Consultare il dettaglio\ndi una richiesta" as UC2
+  usecase "Verificare lo stato\ndelle pipeline" as UC3
+  usecase "Consultare servizi e team" as UC4
+  usecase "Creare una richiesta" as UC5
+  usecase "Assegnare una richiesta\na un team" as UC6
+  usecase "Aggiornare lo stato\ndi una richiesta" as UC8
+  usecase "Confermare o negare\nl'operazione di scrittura" as UC7
+}
+
+Viewer --> UC1
+Viewer --> UC2
+Viewer --> UC3
+Viewer --> UC4
+Operator --> UC5
+Operator --> UC6
+Operator --> UC8
+
+UC1 ..> UC0 : <<include>>
+UC2 ..> UC0 : <<include>>
+UC3 ..> UC0 : <<include>>
+UC4 ..> UC0 : <<include>>
+UC5 ..> UC0 : <<include>>
+UC6 ..> UC0 : <<include>>
+UC5 ..> UC7 : <<include>>
+UC6 ..> UC7 : <<include>>
+UC8 ..> UC0 : <<include>>
+UC8 ..> UC7 : <<include>>
+UC0 -- LLM
+
+note right of UC7
+  L'operatore conferma i parametri
+  esatti; se nega, il tool
+  non viene eseguito.
+end note
+@enduml

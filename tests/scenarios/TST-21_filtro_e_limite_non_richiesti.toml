@@ -1,0 +1,21 @@
+id = "TST-21"
+title = "Filtro e limite scelti dal modello per un elenco generico"
+category = "anomalia"
+request = "Mostrami l'elenco delle richieste"
+expected = "Comportamento osservato con qwen2.5:7b in chat (25 e 26/10): per un elenco generico il modello aggiunge filtri e limiti che l'utente non ha chiesto (priority=low o critical, limit=10) e presenta il risultato parziale come completo. Nella sessione del 26/10 il modello chiama list_requests con priority=critical e limit=10, che l'utente non ha chiesto, e descrive il risultato come «10 di 31 richieste con priorità critica». L'harness toglie il filtro, porta il limite al massimo perché l'utente non ha indicato un numero di elementi, allega l'elenco completo dai dati e aggiunge una nota che dichiara il filtro tolto."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["list_requests"]
+events_present = ["tool_args_adjusted"]
+answer_all = [
+  "Elenco generato dal sistema dai dati dello strumento: 30 elementi",
+  "il filtro priority=critical",
+]
+
+# Risposte registrate nella sessione del 26/10.
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { order_by = "priority", priority = "critical", limit = 10 } }]
+
+[[script]]
+text = "Ecco l'elenco delle richieste con priorità critica:\n\n1. ID: 11 - Variabili d'ambiente mancanti in identity-service\n2. ID: 1 - Deploy customer-portal in errore su prod\n\nSono stati elencati 10 di 31 richieste con priorità critica."

@@ -1,0 +1,30 @@
+id = "TST-07"
+title = "Assegnazione a un team con conferma"
+category = "scrittura"
+request = "Assegna la richiesta 2 al team che si occupa di certificati e sicurezza."
+confirmations = [true]
+expected = "L'agente ricava il team Cloud Security (id 4) e propone assign_request; dopo la conferma la richiesta 2 passa a in_progress con team 4 e lo storico registra assegnazione e cambio di stato. Se il modello propone il team sbagliato (comportamento osservato con qwen2.5:7b: team_id=3, Data Platform), l'harness blocca la scrittura, indica l'unico team coerente con la richiesta e, se il modello chiude il turno, gli ripropone una volta la correzione."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["assign_request"]
+tools_not_called = ["create_request"]
+# Con il modello reale conta l'esito; il percorso di correzione lo verifica lo script.
+events_present_scripted = ["tool_ungrounded", "harness_nudge"]
+db = [
+  { sql = "SELECT team_id || '/' || status FROM operational_request WHERE id = 2", equals = "4/in_progress" },
+  { sql = "SELECT COUNT(*) FROM request_history WHERE request_id = 2 AND event IN ('assigned', 'status_changed')", delta = 2 },
+]
+
+# Lo script riproduce la sessione reale: team sbagliato, risposta a testo senza riprovare, correzione.
+[[script]]
+tool_calls = [{ name = "assign_request", arguments = { request_id = 2, team_id = 3 } }]
+
+[[script]]
+text = "Il team assegnato non è corretto. I team disponibili sono: Platform Engineering, CI/CD Enablement, Data Platform, Cloud Security."
+
+[[script]]
+tool_calls = [{ name = "assign_request", arguments = { request_id = 2, team_id = 4 } }]
+
+[[script]]
+text = "Fatto: la richiesta 2 è assegnata al team Cloud Security ed è passata in lavorazione."

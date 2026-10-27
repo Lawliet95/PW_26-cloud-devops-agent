@@ -1,0 +1,25 @@
+id = "TST-10"
+title = "Errore del server su un tool"
+category = "anomalia"
+request = "Elenca le richieste aperte assegnate al team CI/CD Enablement."
+fault_tools = ["list_requests"]
+expected = "list_requests fallisce per un guasto simulato del server; l'harness ritenta una volta la lettura (tool_retry), poi restituisce l'errore al modello dicendo che il riprovo è già avvenuto. L'agente risponde in modo controllato, senza crash e senza promettere un nuovo tentativo."
+
+[expect]
+stop_reason = "final_answer"
+tool_failed = ["list_requests"]
+# Le letture fallite per un guasto temporaneo vengono ritentate una volta dall'harness.
+events_present = ["tool_retry"]
+tools_not_called = ["create_request", "assign_request"]
+# Esecuzione 6: "il servizio non è attualmente disponibile. Ti consiglio di riprovare più tardi."
+# Risposta corretta, rifiutata dal vecchio frammento "non disponibile": si usano radici.
+answer_any = ["errore", "problem", "non riesco", "non è possibile", "disponibil", "impossibil", "più tardi"]
+# Esecuzione 4: "…ho ricevuto un errore interno del server. Riprovo subito." senza alcun riprovo.
+# Una promessa di azione non eseguita non è una risposta controllata.
+answer_none = ["riprovo", "riproverò", "ci riprovo"]
+
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { status = "open", team_id = 2 } }]
+
+[[script]]
+text = "Il sistema delle richieste ha restituito un errore interno e non riesco a recuperare l'elenco in questo momento. Riprova tra poco."

@@ -1,0 +1,18 @@
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Dati e log generati a runtime 
+data/*.db
+#logs/
+# I database dei singoli scenari sono rigenerabili e pesano
+logs/**/db/
+logs/mcp_server.log
+
+#config.toml
+.env
+

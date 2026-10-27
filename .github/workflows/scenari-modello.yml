@@ -1,0 +1,68 @@
+# Scenari con il modello reale (Ollama) su un runner GitHub senza GPU: l'inferenza gira su CPU ed è
+# lenta, per questo il workflow non parte a ogni push ma a mano (Actions > Scenari con il modello >
+# Run workflow) e una volta alla settimana. Su un repository pubblico i runner standard sono gratuiti.
+name: Scenari con il modello
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: Modello Ollama
+        default: qwen2.5:7b
+      repeat:
+        description: Ripetizioni per scenario
+        default: "1"
+      only:
+        description: "Scenari da eseguire, separati da spazi (vuoto = tutti)"
+        default: ""
+  schedule:
+    - cron: "17 2 * * 1" # lunedì alle 02:17 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  scenarios:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      MODEL: ${{ inputs.model || 'qwen2.5:7b' }}
+      REPEAT: ${{ inputs.repeat || '1' }}
+      ONLY: ${{ inputs.only || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+
+      - name: Installa Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Cache del modello
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-${{ env.MODEL }}
+
+      - name: Avvia Ollama e scarica il modello
+        run: |
+          sudo systemctl stop ollama || true
+          nohup ollama serve > ollama.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:11434/api/version && break; sleep 2; done
+          ollama pull "$MODEL"
+
+      - name: Esegui gli scenari
+        run: |
+          # su CPU una risposta può superare i 180 s della configurazione locale
+          sed 's/^timeout_s = .*/timeout_s = 600/' config.example.toml > ci-config.toml
+          devops-agent --config ci-config.toml --model "$MODEL" scenarios --repeat "$REPEAT" ${ONLY:+--only $ONLY}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenari-${{ github.run_number }}
+          path: |
+            logs/scenarios/
+            ollama.log

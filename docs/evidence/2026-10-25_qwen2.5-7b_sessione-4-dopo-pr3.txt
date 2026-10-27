@@ -1,0 +1,252 @@
+PS C:\Users\franc\source\cloud-devops-agent> git pull
+remote: Enumerating objects: 49, done.
+remote: Counting objects: 100% (49/49), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 27 (delta 19), reused 26 (delta 19), pack-reused 0 (from 0)
+Unpacking objects: 100% (27/27), 59.85 KiB | 2.14 MiB/s, done.
+From https://github.com/Lawliet95/cloud-devops-agent
+   7c543ce..2eca71d  main       -> origin/main
+ * [new branch]      fix/limiti-numerici-letture -> origin/fix/limiti-numerici-letture
+Updating 7c543ce..2eca71d
+Fast-forward
+ README.md                                          |   8 +-
+ docs/evidence/2026-10-25_qwen2.5-7b_analisi.md     |  48 ++++++++
+ .../2026-10-25_qwen2.5-7b_sessione-2-limit.txt     |  67 +++++++++++
+ ...026-10-25_qwen2.5-7b_sessione-3-ripetizione.txt |  23 ++++
+ docs/requirements.md                               |   4 +-
+ docs/uml/activity-loop.puml                        |   5 +-
+ docs/uml/out/activity-loop.png                     | Bin 44124 -> 47320 bytes
+ docs/uml/out/activity-loop.svg                     |   2 +-
+ src/devops_agent/agent/loop.py                     | 131 ++++++++++++++++++++-
+ src/devops_agent/cli.py                            |   6 +
+ src/devops_agent/evaluation/scenarios.py           |   5 +
+ tests/scenarios/TST-11_parametri_non_validi.toml   |  11 +-
+ .../TST-17_id_ripetuto_senza_ricerca.toml          |  24 ++++
+ tests/test_loop.py                                 |  80 ++++++++++++-
+ 14 files changed, 390 insertions(+), 24 deletions(-)
+ create mode 100644 docs/evidence/2026-10-25_qwen2.5-7b_sessione-2-limit.txt
+ create mode 100644 docs/evidence/2026-10-25_qwen2.5-7b_sessione-3-ripetizione.txt
+ create mode 100644 tests/scenarios/TST-17_id_ripetuto_senza_ricerca.toml
+PS C:\Users\franc\source\cloud-devops-agent> .venv\Scripts\Activate.ps1
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent ask "Quali richieste high sono ancora aperte?"
+· iterazione 1: richiesta al modello
+  risposta in 3370 ms · token 1823 in / 34 out
+  → list_requests {"limit": 100, "priority": "high", "status": "open"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (6 ms)
+· iterazione 2: richiesta al modello
+  risposta in 3655 ms · token 2688 in / 236 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4511/270 · 7043 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste high ancora aperte:                                                                                                                                                                         │
+│                                                                                                                                                                                                               │
+│  1 ID: 28 - Richiesta accesso in lettura ai log di billing-api (staging)                                                                                                                                      │
+│  2 ID: 30 - Aggiornare immagine base di identity-service (prod)                                                                                                                                               │
+│  3 ID: 21 - Errori 5xx in aumento su notification-worker (dev)                                                                                                                                                │
+│  4 ID: 22 - Errori 5xx in aumento su payments-api (prod)                                                                                                                                                      │
+│  5 ID: 19 - Variabili d'ambiente mancanti in customer-portal (prod, assegnato al team CI/CD Enablement)                                                                                                       │
+│  6 ID: 29 - Backup non verificato per reporting-batch (prod)                                                                                                                                                  │
+│  7 ID: 2 - Certificato TLS in scadenza su identity-service (prod)                                                                                                                                             │
+│  8 ID: 5 - Errore 502 intermittente sul portale (prod)                                                                                                                                                        │
+│                                                                                                                                                                                                               │
+│ Vuoi assegnare o modificare lo stato di alcune di queste richieste?                                                                                                                                           │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+log: logs\runs\20261025T150057Z-e47173.jsonl
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent ask "Quali richieste sono ancora aperte?"
+· iterazione 1: richiesta al modello
+  risposta in 765 ms · token 1822 in / 34 out
+  → list_requests {"status": "open", "limit": 10, "order_by": "priority"}
+  ← list_requests ok (6 ms)
+· iterazione 2: richiesta al modello
+  risposta in 3365 ms · token 2652 in / 215 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4474/249 · 4148 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste aperte:                                                                                                                                                                                     │
+│                                                                                                                                                                                                               │
+│   1 Deploy customer-portal in errore su prod (critical, prod)                                                                                                                                                 │
+│   2 Richiesta accesso in lettura ai log di billing-api (high, staging)                                                                                                                                        │
+│   3 Aggiornare immagine base di identity-service (high, prod)                                                                                                                                                 │
+│   4 Errori 5xx in aumento su notification-worker (high, dev)                                                                                                                                                  │
+│   5 Errori 5xx in aumento su payments-api (high, prod)                                                                                                                                                        │
+│   6 Variabili d'ambiente mancanti in customer-portal (high, prod, in progress)                                                                                                                                │
+│   7 Backup non verificato per reporting-batch (high, prod)                                                                                                                                                    │
+│   8 Certificato TLS in scadenza su identity-service (high, prod)                                                                                                                                              │
+│   9 Errore 502 intermittente sul portale (high, prod)                                                                                                                                                         │
+│  10 Scadenza token di servizio per payments-api (medium, staging)                                                                                                                                             │
+│                                                                                                                                                                                                               │
+│ Se hai bisogno di ulteriori dettagli su una richiesta specifica, fammi sapere!                                                                                                                                │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+log: logs\runs\20261025T150116Z-2a5faf.jsonl
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent chat
+╭─────────────────────────────────────────────────────────────────────────────────────────── Assistente Cloud/DevOps ───────────────────────────────────────────────────────────────────────────────────────────╮
+│ Modello: ollama/qwen2.5:7b · ruolo: operator · tool visibili: 8                                                                                                                                               │
+│ Comandi: /reset azzera la conversazione, /esci termina.                                                                                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Apri una richiesta high per payments-api. Il deploy helm fallisce con ImagePullBackOff
+· iterazione 1: richiesta al modello
+  risposta in 1561 ms · token 1832 in / 86 out
+  → create_request {"title": "Deploy Helm fallito con ImagePullBackOff", "description": "Il deploy Helm per il servizio payments-api sta fallendo con l'errore 'ImagePullBackOff'.…
+  ✗ create_request bloccato: id non verificati (service_id)
+  ↺ list_services eseguito dall'harness: 8 valori ammessi per service_id
+· iterazione 2: richiesta al modello
+  risposta in 669 ms · token 2212 in / 30 out
+■ arresto: final_answer · iterazioni 2 · tool 0 · token 4044/116 · 2244 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Il servizio payments-api ha più istanze in diversi ambienti. Per quale ambiente stai facendo riferimento?                                                                                                     │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Apri una richiesta high per payments-api, l'ambiente di riferimento è prod. Il deploy helm fallisce con ImagePullBackOff
+· iterazione 1: richiesta al modello
+  risposta in 1739 ms · token 2282 in / 87 out
+  → create_request {"title": "Deploy Helm fallito con ImagePullBackOff", "description": "Il deploy Helm per il servizio payments-api prod sta fallendo con l'errore 'ImagePullBack…
+╭───────────────────────────────────────────────────────────────────────────────────── Conferma richiesta · create_request ─────────────────────────────────────────────────────────────────────────────────────╮
+│  title        Deploy Helm fallito con ImagePullBackOff                                                                                                                                                        │
+│  description  Il deploy Helm per il servizio payments-api prod sta fallendo con l'errore 'ImagePullBackOff'. Si tratta di un problema critico che richiede attenzione immediata.                              │
+│  priority     high                                                                                                                                                                                            │
+│  service_id   1  → payments-api (prod)                                                                                                                                                                        │
+╰──────────────────────────────────────────────────────── Crea la richiesta "Deploy Helm fallito con ImagePullBackOff" con priorità high sul servizio 1 ────────────────────────────────────────────────────────╯
+Confermi l'operazione?  si
+  operazione confermata
+  ← create_request ok (7 ms)
+· iterazione 2: richiesta al modello
+  risposta in 807 ms · token 2575 in / 24 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4857/111 · 19206 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Richiesta operativa creata con successo. L'identificativo della richiesta è 31.                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutte le richieste aperte
+· iterazione 1: richiesta al modello
+  risposta in 876 ms · token 2618 in / 35 out
+  → list_requests {"status": "open", "limit": 100, "order_by": "priority"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (6 ms)
+· iterazione 2: richiesta al modello
+  risposta in 8086 ms · token 4130 in / 498 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 6748/533 · 8978 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste aperte:                                                                                                                                                                                     │
+│                                                                                                                                                                                                               │
+│   1 ID: 1 - Titolo: Deploy customer-portal in errore su prod - Priorità: critico                                                                                                                              │
+│   2 ID: 28 - Titolo: Richiesta accesso in lettura ai log di billing-api - Priorità: alta                                                                                                                      │
+│   3 ID: 30 - Titolo: Aggiornare immagine base di identity-service - Priorità: alta                                                                                                                            │
+│   4 ID: 21 - Titolo: Errori 5xx in aumento su notification-worker - Priorità: alta                                                                                                                            │
+│   5 ID: 22 - Titolo: Errori 5xx in aumento su payments-api - Priorità: alta                                                                                                                                   │
+│   6 ID: 19 - Titolo: Variabili d'ambiente mancanti in customer-portal - Priorità: alta                                                                                                                        │
+│   7 ID: 29 - Titolo: Backup non verificato per reporting-batch - Priorità: alta                                                                                                                               │
+│   8 ID: 2 - Titolo: Certificato TLS in scadenza su identity-service - Priorità: alta                                                                                                                          │
+│   9 ID: 5 - Titolo: Errore 502 intermittente sul portale - Priorità: alta                                                                                                                                     │
+│  10 ID: 31 - Titolo: Deploy Helm fallito con ImagePullBackOff - Priorità: alta                                                                                                                                │
+│  11 ID: 15 - Titolo: Scadenza token di servizio per payments-api - Priorità: media                                                                                                                            │
+│  12 ID: 4 - Titolo: Lentezza query report mensile - Priorità: media                                                                                                                                           │
+│  13 ID: 10 - Titolo: Migrazione schema bloccata su customer-portal - Priorità: media                                                                                                                          │
+│  14 ID: 26 - Titolo: Pipeline di build lenta su billing-api - Priorità: bassa                                                                                                                                 │
+│  15 ID: 8 - Titolo: Alert memoria notification-worker - Priorità: bassa                                                                                                                                       │
+│                                                                                                                                                                                                               │
+│ Se hai bisogno di ulteriori dettagli su una richiesta specifica, fammi sapere.                                                                                                                                │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutti i team
+· iterazione 1: richiesta al modello
+  risposta in 522 ms · token 4643 in / 16 out
+  → list_teams {}
+  ← list_teams ok (4 ms)
+· iterazione 2: richiesta al modello
+  risposta in 2719 ms · token 4789 in / 159 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 9432/175 · 3251 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco i team operativi:                                                                                                                                                                                        │
+│                                                                                                                                                                                                               │
+│  1 ID: 1 - Nome: Platform Engineering - Specializzazione: Cluster Kubernetes, networking, ingress, capacity                                                                                                   │
+│  2 ID: 2 - Nome: CI/CD Enablement - Specializzazione: Pipeline, runner, registry degli artefatti, rilasci                                                                                                     │
+│  3 ID: 3 - Nome: Data Platform - Specializzazione: Database gestiti, backup, migrazioni, performance delle query                                                                                              │
+│  4 ID: 4 - Nome: Cloud Security - Specializzazione: Identità, segreti, certificati, policy di accesso                                                                                                         │
+│                                                                                                                                                                                                               │
+│ Se hai bisogno di ulteriori informazioni, fammi sapere.                                                                                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Assegna la richiesta con ID 31 al team CI/CD enablement
+· iterazione 1: richiesta al modello
+  risposta in 809 ms · token 4975 in / 29 out
+  → assign_request {"request_id": 31, "team_id": 2}
+╭───────────────────────────────────────────────────────────────────────────────────── Conferma richiesta · assign_request ─────────────────────────────────────────────────────────────────────────────────────╮
+│  request_id  31  → Deploy Helm fallito con ImagePullBackOff                                                                                                                                                   │
+│  team_id     2  → CI/CD Enablement                                                                                                                                                                            │
+╰────────────────────────────────────────────────────────────────────────────────────── Assegna la richiesta 31 al team 2 ──────────────────────────────────────────────────────────────────────────────────────╯
+Confermi l'operazione?  si
+  operazione confermata
+  ← assign_request ok (7 ms)
+· iterazione 2: richiesta al modello
+  risposta in 716 ms · token 5321 in / 31 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 10296/60 · 4215 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ La richiesta con ID 31 è stata assegnata al team CI/CD Enablement e il suo stato è ora in_progress.                                                                                                           │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> il team CI/CD enablement ha risolto la richiesta con ID 31. Modifica lo stato in chiusa e rimuovila dalla coda
+· iterazione 1: richiesta al modello
+  risposta in 1990 ms · token 4958 in / 44 out
+  → update_request_status {"request_id": 31, "status": "closed", "note": "Risolta dal team CI/CD Enablement"}
+╭───────────────────────────────────────────────────────────────────────────────── Conferma richiesta · update_request_status ──────────────────────────────────────────────────────────────────────────────────╮
+│  request_id  31  → Deploy Helm fallito con ImagePullBackOff                                                                                                                                                   │
+│  status      closed                                                                                                                                                                                           │
+│  note        Risolta dal team CI/CD Enablement                                                                                                                                                                │
+╰───────────────────────────────────────────────────────────── Porta la richiesta 31 allo stato closed · nota: "Risolta dal team CI/CD Enablement" ─────────────────────────────────────────────────────────────╯
+Confermi l'operazione?  si
+  operazione confermata
+  ← update_request_status ok (7 ms)
+· iterazione 2: richiesta al modello
+  risposta in 824 ms · token 5377 in / 27 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 10335/71 · 7968 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ La richiesta con ID 31 è stata chiusa e rimossa dalla coda. Lo stato è ora closed.                                                                                                                            │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutte le richieste aperte
+· iterazione 1: richiesta al modello
+  risposta in 1890 ms · token 5066 in / 35 out
+  → list_requests {"limit": 100, "order_by": "priority", "status": "open"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (3 ms)
+· iterazione 2: richiesta al modello
+  risposta in 7619 ms · token 6486 in / 467 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 11552/502 · 9521 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste aperte:                                                                                                                                                                                     │
+│                                                                                                                                                                                                               │
+│   1 ID: 1 - Titolo: Deploy customer-portal in errore su prod - Priorità: critico                                                                                                                              │
+│   2 ID: 28 - Titolo: Richiesta accesso in lettura ai log di billing-api - Priorità: alta                                                                                                                      │
+│   3 ID: 30 - Titolo: Aggiornare immagine base di identity-service - Priorità: alta                                                                                                                            │
+│   4 ID: 21 - Titolo: Errori 5xx in aumento su notification-worker - Priorità: alta                                                                                                                            │
+│   5 ID: 22 - Titolo: Errori 5xx in aumento su payments-api - Priorità: alta                                                                                                                                   │
+│   6 ID: 19 - Titolo: Variabili d'ambiente mancanti in customer-portal - Priorità: alta                                                                                                                        │
+│   7 ID: 29 - Titolo: Backup non verificato per reporting-batch - Priorità: alta                                                                                                                               │
+│   8 ID: 2 - Titolo: Certificato TLS in scadenza su identity-service - Priorità: alta                                                                                                                          │
+│   9 ID: 5 - Titolo: Errore 502 intermittente sul portale - Priorità: alta                                                                                                                                     │
+│  10 ID: 15 - Titolo: Scadenza token di servizio per payments-api - Priorità: media                                                                                                                            │
+│  11 ID: 4 - Titolo: Lentezza query report mensile - Priorità: media                                                                                                                                           │
+│  12 ID: 10 - Titolo: Migrazione schema bloccata su customer-portal - Priorità: media                                                                                                                          │
+│  13 ID: 26 - Titolo: Pipeline di build lenta su billing-api - Priorità: bassa                                                                                                                                 │
+│  14 ID: 8 - Titolo: Alert memoria notification-worker - Priorità: bassa                                                                                                                                       │
+│                                                                                                                                                                                                               │
+│ Se hai bisogno di ulteriori dettagli su una richiesta specifica, fammi sapere.                                                                                                                                │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutte le richieste aperte, con gli ambienti di riferimento
+· iterazione 1: richiesta al modello
+  risposta in 8426 ms · token 4952 in / 472 out
+■ arresto: final_answer · iterazioni 1 · tool 0 · token 4952/472 · 8428 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste aperte con gli ambienti di riferimento:                                                                                                                                                     │
+│                                                                                                                                                                                                               │
+│   1 ID: 1 - Titolo: Deploy customer-portal in errore su prod - Ambiente: prod                                                                                                                                 │
+│   2 ID: 28 - Titolo: Richiesta accesso in lettura ai log di billing-api - Ambiente: staging                                                                                                                   │
+│   3 ID: 30 - Titolo: Aggiornare immagine base di identity-service - Ambiente: prod                                                                                                                            │
+│   4 ID: 21 - Titolo: Errori 5xx in aumento su notification-worker - Ambiente: dev                                                                                                                             │
+│   5 ID: 22 - Titolo: Errori 5xx in aumento su payments-api - Ambiente: prod                                                                                                                                   │
+│   6 ID: 19 - Titolo: Variabili d'ambiente mancanti in customer-portal - Ambiente: prod                                                                                                                        │
+│   7 ID: 29 - Titolo: Backup non verificato per reporting-batch - Ambiente: prod                                                                                                                               │
+│   8 ID: 2 - Titolo: Certificato TLS in scadenza su identity-service - Ambiente: prod                                                                                                                          │
+│   9 ID: 5 - Titolo: Errore 502 intermittente sul portale - Ambiente: prod                                                                                                                                     │
+│  10 ID: 15 - Titolo: Scadenza token di servizio per payments-api - Ambiente: staging                                                                                                                          │
+│  11 ID: 4 - Titolo: Lentezza query report mensile - Ambiente: prod                                                                                                                                            │
+│  12 ID: 10 - Titolo: Migrazione schema bloccata su customer-portal - Ambiente: prod                                                                                                                           │
+│  13 ID: 26 - Titolo: Pipeline di build lenta su billing-api - Ambiente: prod                                                                                                                                  │
+│  14 ID: 8 - Titolo: Alert memoria notification-worker - Ambiente: dev                                                                                                                                         │
+│                                                                                                                                                                                                               │
+│ Se hai bisogno di ulteriori dettagli su una richiesta specifica, fammi sapere.                                                                                                                                │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+>

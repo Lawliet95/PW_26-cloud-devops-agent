@@ -1,0 +1,52 @@
+# Configurazione dell'assistente.
+# Ogni valore omesso usa il default definito in src/devops_agent/config.py.
+
+[model]
+# ollama | openai_compat | scripted (solo test)
+provider = "ollama"
+# Modello locale con supporto al tool calling. Verificalo sul tuo hardware:
+#   ollama pull qwen2.5:7b
+# Alternative da provare e confrontare: llama3.1:8b, qwen3:8b, mistral-nemo
+model = "qwen2.5:7b"
+base_url = "http://localhost:11434"
+temperature = 0.0
+timeout_s = 180
+# Finestra di contesto di Ollama. Con il default di alcune versioni (4096 token) i messaggi
+# più vecchi vengono troncati senza avviso; prompt e schemi dei tool occupano ~1.400 token.
+num_ctx = 16384
+# think = false         # solo per modelli con modalità di ragionamento (es. qwen3)
+
+# Esempio di secondo adattatore, servizio con API compatibile Chat Completions:
+# provider = "openai_compat"
+# model = "nome-del-modello"
+# base_url = "https://api.esempio.com/v1"
+# api_key_env = "NOME_VARIABILE_CON_LA_CHIAVE"   # la chiave non va mai scritta qui
+
+[agent]
+role = "operator"                 # deve esistere in [policy.roles]
+user = "operatore.demo"
+organization = "Nimbus Managed Services S.r.l."
+history_turns = 4                 # turni precedenti mantenuti nella chat (contesto limitato)
+
+[limits]
+max_iterations = 8
+max_total_tokens = 30000
+max_invalid_args = 3
+max_repeated_calls = 2
+max_tool_calls_per_turn = 5
+tool_timeout_s = 20.0
+
+[paths]
+db = "data/devops.db"
+logs = "logs"
+
+[policy]
+# Ogni tool esposto dal server deve essere classificato qui, altrimenti non viene
+# mostrato al modello (default deny). I tool di scrittura chiedono sempre conferma.
+read_tools = ["list_services", "list_teams", "list_requests", "get_request", "get_pipeline_status"]
+write_tools = ["create_request", "assign_request", "update_request_status"]
+
+[policy.roles]
+viewer = ["list_services", "list_teams", "list_requests", "get_request", "get_pipeline_status"]
+operator = ["list_services", "list_teams", "list_requests", "get_request", "get_pipeline_status",
+            "create_request", "assign_request", "update_request_status"]

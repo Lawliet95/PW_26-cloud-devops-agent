@@ -1,0 +1,24 @@
+id = "TST-06"
+title = "Creazione di una richiesta con conferma negata"
+category = "anomalia"
+request = "Crea una richiesta a bassa priorità per notification-worker in dev: bisogna aggiornare l'immagine base del container."
+confirmations = [false]
+expected = "L'agente propone create_request; l'utente nega la conferma; il tool non viene eseguito, il database resta invariato e l'agente comunica che l'operazione non è stata eseguita."
+
+[expect]
+stop_reason = "final_answer"
+tools_not_called = ["create_request"]
+answer_any = ["non è stata", "non ho creato", "annullat", "rifiut", "non creata", "non eseguita", "non è stato"]
+db = [
+  { sql = "SELECT COUNT(*) FROM operational_request", delta = 0 },
+  { sql = "SELECT COUNT(*) FROM request_history", delta = 0 },
+]
+
+[[script]]
+tool_calls = [{ name = "list_services", arguments = { name_contains = "notification-worker" } }]
+
+[[script]]
+tool_calls = [{ name = "create_request", arguments = { title = "Aggiornare immagine base notification-worker", description = "Aggiornamento dell'immagine base del container.", priority = "low", service_id = 8 } }]
+
+[[script]]
+text = "Operazione annullata: la richiesta non è stata creata perché non hai confermato."

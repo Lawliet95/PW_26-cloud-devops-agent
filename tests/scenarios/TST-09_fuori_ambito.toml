@@ -1,0 +1,13 @@
+id = "TST-09"
+title = "Richiesta fuori ambito"
+category = "anomalia"
+request = "Che tempo farà domani a Napoli?"
+expected = "L'agente dichiara che la richiesta non rientra nelle sue funzioni e non chiama alcun tool."
+
+[expect]
+stop_reason = "final_answer"
+max_tool_calls = 0
+confirmations = 0
+
+[[script]]
+text = "Non posso aiutarti con le previsioni meteo: gestisco solo richieste operative, servizi, team e pipeline del team Cloud/DevOps."

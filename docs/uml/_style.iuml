@@ -1,0 +1,15 @@
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam ArrowColor #444444
+skinparam ClassBorderColor #444444
+skinparam ClassBackgroundColor #FBFBFB
+skinparam PackageBorderColor #888888
+skinparam ActorBorderColor #444444
+skinparam UsecaseBorderColor #444444
+skinparam UsecaseBackgroundColor #FBFBFB
+skinparam ParticipantBorderColor #444444
+skinparam ParticipantBackgroundColor #FBFBFB
+skinparam SequenceLifeLineBorderColor #888888
+skinparam NoteBackgroundColor #FFF8DC
+skinparam NoteBorderColor #B8A770

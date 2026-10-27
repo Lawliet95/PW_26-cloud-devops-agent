@@ -1,0 +1,71 @@
+@startuml er
+!include _style.iuml
+title Schema entità-relazione
+hide circle
+skinparam linetype ortho
+
+entity "service" as service {
+  * id : INTEGER <<PK>>
+  --
+  * name : TEXT
+  * environment : TEXT {dev, staging, prod}
+  description : TEXT
+  .. UNIQUE (name, environment) ..
+}
+
+entity "team" as team {
+  * id : INTEGER <<PK>>
+  --
+  * name : TEXT <<UNIQUE>>
+  * specialty : TEXT
+}
+
+entity "pipeline" as pipeline {
+  * id : INTEGER <<PK>>
+  --
+  * service_id : INTEGER <<FK>>
+  * name : TEXT
+  .. UNIQUE (service_id, name) ..
+}
+
+entity "pipeline_run" as run {
+  * id : INTEGER <<PK>>
+  --
+  * pipeline_id : INTEGER <<FK>>
+  * status : TEXT {success, failed, running, canceled}
+  duration_seconds : INTEGER
+  * executed_at : TEXT (ISO 8601 UTC)
+  summary : TEXT
+}
+
+entity "operational_request" as req {
+  * id : INTEGER <<PK>>
+  --
+  * service_id : INTEGER <<FK>>
+  team_id : INTEGER <<FK>> (NULL = non assegnata)
+  * title : TEXT (5-120 caratteri)
+  description : TEXT (max 2000)
+  * status : TEXT {open, in_progress, resolved, closed}
+  * priority : TEXT {low, medium, high, critical}
+  * created_at : TEXT
+  * updated_at : TEXT
+}
+
+entity "request_history" as hist {
+  * id : INTEGER <<PK>>
+  --
+  * request_id : INTEGER <<FK>>
+  * event : TEXT {created, assigned, status_changed}
+  old_value : TEXT
+  new_value : TEXT
+  note : TEXT (max 500)
+  * actor : TEXT
+  * at : TEXT
+}
+
+service ||--o{ pipeline : possiede
+pipeline ||--o{ run : esegue
+service ||--o{ req : riguarda
+team |o--o{ req : gestisce
+req ||--o{ hist : traccia
+@enduml

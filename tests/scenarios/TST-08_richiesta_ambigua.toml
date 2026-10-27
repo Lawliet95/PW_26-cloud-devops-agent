@@ -1,0 +1,18 @@
+id = "TST-08"
+title = "Richiesta ambigua"
+category = "anomalia"
+request = "Apri una richiesta per billing-api: le fatture di ottobre risultano duplicate."
+expected = "billing-api esiste sia in prod sia in staging e la priorità non è indicata: l'agente chiede un chiarimento, non inventa parametri e non crea nulla."
+
+[expect]
+stop_reason = "final_answer"
+tools_not_called = ["create_request"]
+confirmations = 0
+answer_any = ["ambiente", "staging", "priorità", "quale", "?"]
+db = [{ sql = "SELECT COUNT(*) FROM operational_request", delta = 0 }]
+
+[[script]]
+tool_calls = [{ name = "list_services", arguments = { name_contains = "billing" } }]
+
+[[script]]
+text = "billing-api esiste in due ambienti: prod (id 6) e staging (id 7). A quale ti riferisci, e con quale priorità devo aprire la richiesta?"

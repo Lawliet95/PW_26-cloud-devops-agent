@@ -1,0 +1,26 @@
+id = "TST-12"
+title = "Superamento del numero massimo di iterazioni"
+category = "limiti"
+request = "Quali richieste critiche sono ancora aperte?"
+expected = "Con max_iterations=1 il modello può chiedere uno strumento ma non ha un'altra iterazione per leggerne il risultato e rispondere: l'harness interrompe con motivo max_iterations, registrato nel log, e restituisce un messaggio di interruzione invece di una risposta inventata. Nessuna scrittura."
+
+# Esecuzione 2: con la richiesta precedente (lettura + assegnazione) e max_iterations=2 il modello
+# chiedeva tutti gli strumenti nello stesso turno e completava il compito entro il limite, quindi lo
+# scenario non verificava più l'arresto. Una richiesta di sola lettura con un'unica iterazione lo
+# verifica in modo indipendente dal modello: serve sempre almeno un'iterazione dopo il risultato.
+[limits]
+max_iterations = 1
+
+[expect]
+stop_reason = "max_iterations"
+tools_called = ["list_requests"]
+tools_not_called = ["create_request", "assign_request", "update_request_status"]
+confirmations = 0
+answer_any = ["limite di iterazioni"]
+db = [{ sql = "SELECT COUNT(*) FROM request_history", delta = 0 }]
+
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { status = "open", priority = "critical" } }]
+
+[[script]]
+text = "C'è una richiesta critica aperta: la 1, deploy di customer-portal in errore su prod."

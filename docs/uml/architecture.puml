@@ -1,0 +1,39 @@
+@startuml architecture
+!include _style.iuml
+title Architettura del sistema
+
+actor "Operatore" as User
+node "Computer dell'operatore" {
+  component "CLI\n(devops-agent)" as CLI
+  package "Harness agentico" {
+    component "AgentSession" as Session
+    component "Ciclo agentico\n(run_agent)" as Loop
+    component "Policy\n(ruoli, scritture)" as Policy
+    component "Adattatori LLM\n(Ollama, OpenAI-compat)" as Providers
+    component "Client MCP\n(McpToolExecutor)" as Client
+    component "RunLogger" as Logger
+  }
+  package "Processo separato" {
+    component "Server MCP\n(MCPServer, 8 tool)" as Server
+    component "Servizi applicativi\n(regole di business)" as Services
+  }
+  database "SQLite\n(dati sintetici)" as DB
+  file "logs/*.jsonl" as Logs
+  component "Ollama\n(modello locale)" as Ollama
+}
+cloud "Servizio LLM con API\ncompatibile (opzionale)" as Remote
+
+User --> CLI : richiesta, conferme
+CLI --> Session
+Session --> Loop
+Loop --> Policy : tool visibili, conferme
+Loop --> Providers : messaggi + tool
+Loop --> Client : chiamate validate
+Loop --> Logger
+Logger --> Logs
+Providers --> Ollama : HTTP /api/chat
+Providers ..> Remote : HTTPS /chat/completions
+Client --> Server : MCP su stdio
+Server --> Services
+Services --> DB
+@enduml

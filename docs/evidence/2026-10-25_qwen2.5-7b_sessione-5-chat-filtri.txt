@@ -1,0 +1,192 @@
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent chat
+╭─────────────────────────────────────────────────────────────────────────────────────────── Assistente Cloud/DevOps ───────────────────────────────────────────────────────────────────────────────────────────╮
+│ Modello: ollama/qwen2.5:7b · ruolo: operator · tool visibili: 8                                                                                                                                               │
+│ Comandi: /reset azzera la conversazione, /esci termina.                                                                                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami l'elenco delle richieste in coda
+· iterazione 1: richiesta al modello
+  risposta in 1286 ms · token 2010 in / 60 out
+  → list_requests {"status": "open", "team_id": null, "unassigned_only": false, "limit": 10, "order_by": "newest", "priority": "low", "service_id": null}
+  ← list_requests ok (5 ms)
+· iterazione 2: richiesta al modello
+  risposta in 1780 ms · token 2236 in / 101 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4246/161 · 3079 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco l'elenco delle richieste in coda:                                                                                                                                                                        │
+│                                                                                                                                                                                                               │
+│  1 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa                                                                                            │
+│  2 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa                                                                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutto l'elenco delle richieste in coda
+· iterazione 1: richiesta al modello
+  risposta in 1129 ms · token 2361 in / 51 out
+  → list_requests {"status": "open", "team_id": null, "unassigned_only": false, "limit": 100, "order_by": "newest", "priority": "low", "service_id": null}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (2 ms)
+· iterazione 2: richiesta al modello
+  risposta in 1818 ms · token 2665 in / 102 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 5026/153 · 2958 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco l'elenco completo delle richieste in coda:                                                                                                                                                               │
+│                                                                                                                                                                                                               │
+│  1 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa                                                                                            │
+│  2 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa                                                                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami le richieste in coda
+· iterazione 1: richiesta al modello
+  risposta in 1913 ms · token 2786 in / 97 out
+■ arresto: final_answer · iterazioni 1 · tool 0 · token 2786/97 · 1915 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste in coda:                                                                                                                                                                                    │
+│                                                                                                                                                                                                               │
+│  1 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa                                                                                            │
+│  2 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa                                                                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami le richieste in coda in priority high
+· iterazione 1: richiesta al modello
+  risposta in 1132 ms · token 2905 in / 50 out
+  → list_requests {"service_id": null, "status": "open", "team_id": null, "unassigned_only": false, "limit": 100, "order_by": "priority", "priority": "high"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (2 ms)
+· iterazione 2: richiesta al modello
+  risposta in 5640 ms · token 3791 in / 307 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 6696/357 · 6782 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste in coda con priorità alta:                                                                                                                                                                  │
+│                                                                                                                                                                                                               │
+│  1 ID: 28, Titolo: Richiesta accesso in lettura ai log di billing-api, Servizio: billing-api (ambiente staging)                                                                                               │
+│  2 ID: 30, Titolo: Aggiornare immagine base di identity-service, Servizio: identity-service (ambiente prod)                                                                                                   │
+│  3 ID: 21, Titolo: Errori 5xx in aumento su notification-worker, Servizio: notification-worker (ambiente dev)                                                                                                 │
+│  4 ID: 22, Titolo: Errori 5xx in aumento su payments-api, Servizio: payments-api (ambiente prod)                                                                                                              │
+│  5 ID: 19, Titolo: Variabili d'ambiente mancanti in customer-portal, Servizio: customer-portal (ambiente prod), Team: CI/CD Enablement                                                                        │
+│  6 ID: 29, Titolo: Backup non verificato per reporting-batch, Servizio: reporting-batch (ambiente prod)                                                                                                       │
+│  7 ID: 2, Titolo: Certificato TLS in scadenza su identity-service, Servizio: identity-service (ambiente prod)                                                                                                 │
+│  8 ID: 5, Titolo: Errore 502 intermittente sul portale, Servizio: customer-portal (ambiente prod)                                                                                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami le richieste in coda in priority medium
+· iterazione 1: richiesta al modello
+  risposta in 1154 ms · token 4120 in / 50 out
+  → list_requests {"limit": 100, "order_by": "priority", "priority": "medium", "service_id": null, "status": "open", "team_id": null, "unassigned_only": false}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (2 ms)
+· iterazione 2: richiesta al modello
+  risposta in 2486 ms · token 4529 in / 133 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 8649/183 · 3650 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco le richieste in coda con priorità media:                                                                                                                                                                 │
+│                                                                                                                                                                                                               │
+│  1 ID: 15, Titolo: Scadenza token di servizio per payments-api, Servizio: payments-api (ambiente staging)                                                                                                     │
+│  2 ID: 4, Titolo: Lentezza query report mensile, Servizio: reporting-batch (ambiente prod)                                                                                                                    │
+│  3 ID: 10, Titolo: Migrazione schema bloccata su customer-portal, Servizio: customer-portal (ambiente prod), Team: Data Platform                                                                              │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutte le richieste in coda
+· iterazione 1: richiesta al modello
+  risposta in 2219 ms · token 4332 in / 51 out
+  → list_requests {"unassigned_only": false, "limit": 100, "order_by": "newest", "priority": "low", "service_id": null, "status": "open", "team_id": null}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (2 ms)
+· iterazione 2: richiesta al modello
+  risposta in 1551 ms · token 4636 in / 98 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 8968/149 · 3780 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco tutte le richieste in coda:                                                                                                                                                                              │
+│                                                                                                                                                                                                               │
+│  1 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa                                                                                            │
+│  2 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa                                                                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> Mostrami tutte le richieste in coda di tutte le priorità
+· iterazione 1: richiesta al modello
+  risposta in 1805 ms · token 4329 in / 51 out
+  → list_requests {"team_id": null, "unassigned_only": false, "limit": 100, "order_by": "newest", "priority": null, "service_id": null, "status": "open"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (3 ms)
+· iterazione 2: richiesta al modello
+  risposta in 9156 ms · token 5841 in / 572 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 10170/623 · 10973 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco tutte le richieste in coda di tutte le priorità:                                                                                                                                                         │
+│                                                                                                                                                                                                               │
+│   1 ID: 1, Titolo: Deploy customer-portal in errore su prod, Servizio: customer-portal (ambiente prod), Priorità: critica                                                                                     │
+│   2 ID: 5, Titolo: Errore 502 intermittente sul portale, Servizio: customer-portal (ambiente prod), Priorità: alta                                                                                            │
+│   3 ID: 2, Titolo: Certificato TLS in scadenza su identity-service, Servizio: identity-service (ambiente prod), Priorità: alta                                                                                │
+│   4 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa                                                                                           │
+│   5 ID: 29, Titolo: Backup non verificato per reporting-batch, Servizio: reporting-batch (ambiente prod), Priorità: alta                                                                                      │
+│   6 ID: 10, Titolo: Migrazione schema bloccata su customer-portal, Servizio: customer-portal (ambiente prod), Team: Data Platform, Priorità: media                                                            │
+│   7 ID: 4, Titolo: Lentezza query report mensile, Servizio: reporting-batch (ambiente prod), Priorità: media                                                                                                  │
+│   8 ID: 15, Titolo: Scadenza token di servizio per payments-api, Servizio: payments-api (ambiente staging), Priorità: media                                                                                   │
+│   9 ID: 19, Titolo: Variabili d'ambiente mancanti in customer-portal, Servizio: customer-portal (ambiente prod), Team: CI/CD Enablement, Priorità: alta                                                       │
+│  10 ID: 22, Titolo: Errori 5xx in aumento su payments-api, Servizio: payments-api (ambiente prod), Priorità: alta                                                                                             │
+│  11 ID: 21, Titolo: Errori 5xx in aumento su notification-worker, Servizio: notification-worker (ambiente dev), Priorità: alta                                                                                │
+│  12 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa                                                                                            │
+│  13 ID: 30, Titolo: Aggiornare immagine base di identity-service, Servizio: identity-service (ambiente prod), Priorità: alta                                                                                  │
+│  14 ID: 28, Titolo: Richiesta accesso in lettura ai log di billing-api, Servizio: billing-api (ambiente staging), Priorità: alta                                                                              │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+│                                                                                                                                                                                                               │
+│ Elenco generato dal sistema dai dati dello strumento: 14 elementi.                                                                                                                                            │
+│                                                                                                                                                                                                               │
+│ Riepilogo per stato e priorità:                                                                                                                                                                               │
+│                                                                                                                                                                                                               │
+│                                                                                                                                                                                                               │
+│  Stato   critical  high  medium  low  Totale                                                                                                                                                                  │
+│  ───────────────────────────────────────────                                                                                                                                                                  │
+│  open    1         8     3       2    14                                                                                                                                                                      │
+│  Totale  1         8     3       2    14                                                                                                                                                                      │
+│                                                                                                                                                                                                               │
+│                                                                                                                                                                                                               │
+│                                                                                                                                                                                                               │
+│  ID  Titolo                                              Stato  Priorità  Servizio             Ambiente  Team                                                                                                 │
+│  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────                                                                                     │
+│  1   Deploy customer-portal in errore su prod            open   critical  customer-portal      prod      —                                                                                                    │
+│  5   Errore 502 intermittente sul portale                open   high      customer-portal      prod      —                                                                                                    │
+│  2   Certificato TLS in scadenza su identity-service     open   high      identity-service     prod      —                                                                                                    │
+│  8   Alert memoria notification-worker                   open   low       notification-worker  dev       —                                                                                                    │
+│  29  Backup non verificato per reporting-batch           open   high      reporting-batch      prod      —                                                                                                    │
+│  10  Migrazione schema bloccata su customer-portal       open   medium    customer-portal      prod      Data Platform                                                                                        │
+│  4   Lentezza query report mensile                       open   medium    reporting-batch      prod      —                                                                                                    │
+│  15  Scadenza token di servizio per payments-api         open   medium    payments-api         staging   —                                                                                                    │
+│  19  Variabili d'ambiente mancanti in customer-portal    open   high      customer-portal      prod      CI/CD Enablement                                                                                     │
+│  22  Errori 5xx in aumento su payments-api               open   high      payments-api         prod      —                                                                                                    │
+│  21  Errori 5xx in aumento su notification-worker        open   high      notification-worker  dev       —                                                                                                    │
+│  26  Pipeline di build lenta su billing-api              open   low       billing-api          prod      —                                                                                                    │
+│  30  Aggiornare immagine base di identity-service        open   high      identity-service     prod      —                                                                                                    │
+│  28  Richiesta accesso in lettura ai log di billing-api  open   high      billing-api          staging   —                                                                                                    │
+│                                                                                                                                                                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+> elencami tutte le richieste
+· iterazione 1: richiesta al modello
+  risposta in 16045 ms · token 6314 in / 933 out
+■ arresto: final_answer · iterazioni 1 · tool 0 · token 6314/933 · 16047 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ecco l'elenco completo delle richieste operative:                                                                                                                                                             │
+│                                                                                                                                                                                                               │
+│   1 ID: 1, Titolo: Deploy customer-portal in errore su prod, Servizio: customer-portal (ambiente prod), Priorità: critica, Creato il: 2026-10-01T03:12:00Z                                                    │
+│   2 ID: 5, Titolo: Errore 502 intermittente sul portale, Servizio: customer-portal (ambiente prod), Priorità: alta, Creato il: 2026-09-30T12:48:00Z                                                           │
+│   3 ID: 2, Titolo: Certificato TLS in scadenza su identity-service, Servizio: identity-service (ambiente prod), Priorità: alta, Creato il: 2026-09-29T20:00:00Z                                               │
+│   4 ID: 8, Titolo: Alert memoria notification-worker, Servizio: notification-worker (ambiente dev), Priorità: bassa, Creato il: 2026-09-29T08:00:00Z                                                          │
+│   5 ID: 29, Titolo: Backup non verificato per reporting-batch, Servizio: reporting-batch (ambiente prod), Priorità: alta, Creato il: 2026-09-29T05:02:51Z                                                     │
+│   6 ID: 10, Titolo: Migrazione schema bloccata su customer-portal, Servizio: customer-portal (ambiente prod), Team: Data Platform, Priorità: media, Creato il: 2026-09-28T08:18:32Z                           │
+│   7 ID: 4, Titolo: Lentezza query report mensile, Servizio: reporting-batch (ambiente prod), Priorità: media, Creato il: 2026-09-28T08:00:00Z                                                                 │
+│   8 ID: 15, Titolo: Scadenza token di servizio per payments-api, Servizio: payments-api (ambiente staging), Priorità: media, Creato il: 2026-09-27T10:24:46Z                                                  │
+│   9 ID: 19, Titolo: Variabili d'ambiente mancanti in customer-portal, Servizio: customer-portal (ambiente prod), Team: CI/CD Enablement, Priorità: alta, Creato il: 2026-09-25T19:48:29Z                      │
+│  10 ID: 22, Titolo: Errori 5xx in aumento su payments-api, Servizio: payments-api (ambiente prod), Priorità: alta, Creato il: 2026-09-22T17:40:44Z                                                            │
+│  11 ID: 21, Titolo: Errori 5xx in aumento su notification-worker, Servizio: notification-worker (ambiente dev), Priorità: alta, Creato il: 2026-09-11T22:32:16Z                                               │
+│  12 ID: 26, Titolo: Pipeline di build lenta su billing-api, Servizio: billing-api (ambiente prod), Priorità: bassa, Creato il: 2026-09-07T17:02:20Z                                                           │
+│  13 ID: 30, Titolo: Aggiornare immagine base di identity-service, Servizio: identity-service (ambiente prod), Priorità: alta, Creato il: 2026-09-06T12:54:24Z                                                 │
+│  14 ID: 28, Titolo: Richiesta accesso in lettura ai log di billing-api, Servizio: billing-api (ambiente staging), Priorità: alta, Creato il: 2026-09-03T08:09:07Z                                             │
+│                                                                                                                                                                                                               │
+│ Hai bisogno di ulteriori dettagli su una specifica richiesta?                                                                                                                                                 │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+>

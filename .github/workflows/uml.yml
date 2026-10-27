@@ -1,0 +1,29 @@
+# Rigenera i diagrammi UML quando cambiano i sorgenti PlantUML e li pubblica come artefatto.
+name: Diagrammi UML
+
+on:
+  push:
+    paths: ["docs/uml/*.puml", "docs/uml/*.iuml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  uml:
+    runs-on: ubuntu-latest
+    env:
+      PLANTUML_VERSION: "1.2024.8"
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y graphviz
+      - run: >
+          curl -fsSL -o plantuml.jar
+          "https://github.com/plantuml/plantuml/releases/download/v${PLANTUML_VERSION}/plantuml-${PLANTUML_VERSION}.jar"
+      - run: |
+          java -jar plantuml.jar -charset UTF-8 -tsvg -o out docs/uml/*.puml
+          java -jar plantuml.jar -charset UTF-8 -tpng -o out docs/uml/*.puml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diagrammi-uml
+          path: docs/uml/out/

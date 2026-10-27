@@ -1,0 +1,28 @@
+id = "TST-15"
+title = "Risoluzione di una richiesta e uscita dalla coda"
+category = "scrittura"
+request = "La richiesta 2 è stata risolta dal team Cloud Security: aggiorna lo stato e toglila dalla coda delle aperte."
+confirmations = [true]
+expected = "L'agente usa update_request_status (non create_request né assign_request) con stato resolved e una nota; dopo la conferma la richiesta 2 non compare più tra le aperte e lo storico registra il cambio di stato con la nota. Se il modello pianifica più scritture nella stessa risposta (comportamento osservato con qwen2.5:7b: aggiornamento e una nuova richiesta «per documentare la soluzione»), l'harness esegue solo la prima e rifiuta le altre: nessuna richiesta duplicata."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["update_request_status"]
+tools_not_called = ["create_request"]
+confirmations = 1
+events_present_scripted = ["tool_rejected"]
+db = [
+  { sql = "SELECT status FROM operational_request WHERE id = 2", equals = "resolved" },
+  { sql = "SELECT COUNT(*) FROM operational_request", delta = 0 },
+  { sql = "SELECT COUNT(*) FROM request_history WHERE request_id = 2 AND event = 'status_changed' AND note IS NOT NULL", delta = 1 },
+]
+
+# Lo script riproduce la risposta reale: due scritture decise insieme, prima di vedere l'esito della prima.
+[[script]]
+tool_calls = [
+  { name = "update_request_status", arguments = { request_id = 2, status = "resolved", note = "Risolta dal team Cloud Security" } },
+  { name = "create_request", arguments = { title = "Certificato TLS rinnovato su identity-service", description = "Documentazione della soluzione.", priority = "high", service_id = 4 } },
+]
+
+[[script]]
+text = "Fatto: la richiesta 2 è in stato resolved, con la nota «Risolta dal team Cloud Security», e non compare più tra le aperte. Non ho creato nuove richieste."

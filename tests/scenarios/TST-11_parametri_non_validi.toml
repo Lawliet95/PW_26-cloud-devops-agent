@@ -1,0 +1,23 @@
+id = "TST-11"
+title = "Parametri fuori dai limiti"
+category = "anomalia"
+request = "Elencami le prime 200 richieste registrate, tutte in una sola volta."
+expected = "Il limite massimo di list_requests è 50. Se il modello chiede limit=200 (o 100, come osservato con qwen2.5:7b), l'harness riconduce il valore a 50 perché si tratta di una lettura, lo registra nel log (tool_args_adjusted) e lo comunica al modello nel risultato; l'agente risponde con i dati disponibili senza chiedere all'utente di correggere il parametro."
+
+[expect]
+stop_reason = "final_answer"
+tools_called = ["list_requests"]
+tools_not_called = ["create_request", "assign_request", "update_request_status"]
+events_present = ["tool_args_adjusted", "list_attached"]
+# Esecuzione 4: "Ecco le prime 200 richieste" con 23 o 28 voci su 30. Esecuzione 5, con la nota sui
+# conteggi: "le prime 30" con 26 voci, una ripetuta e 5 mancanti. Esecuzione 6: elenco allegato
+# dall'harness, ma il modello inventa la ripartizione stato × priorità. Ora elenco e riepilogo
+# numerico li genera l'harness; la risposta deve contenerli.
+answer_all = ["30", "Elenco generato dal sistema dai dati dello strumento: 30 elementi", "| Totale | 2 | 9 | 9 | 10 | 30 |"]
+answer_none = ["prime 200", "200 richieste"]
+
+[[script]]
+tool_calls = [{ name = "list_requests", arguments = { limit = 200 } }]
+
+[[script]]
+text = "Posso mostrare al massimo 50 richieste per volta; ecco tutte quelle registrate."

@@ -1,0 +1,32 @@
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent ask "Mostrami le richieste priorità critical"
+· iterazione 1: richiesta al modello
+  risposta in 783 ms · token 2006 in / 35 out
+  → list_requests {"priority": "critical", "limit": 100, "order_by": "priority"}
+  ↺ list_requests: limit 100 → 50 (massimo consentito)
+  ← list_requests ok (6 ms)
+· iterazione 2: richiesta al modello
+  risposta in 2089 ms · token 2307 in / 125 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4313/160 · 2889 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Ho trovato 2 richieste con priorità critica:                                                                                                                                                                  │
+│                                                                                                                                                                                                               │
+│  1 ID: 11 - Titolo: Variabili d'ambiente mancanti in identity-service Stato: in_progress Servizio: identity-service (ambiente prod) Team: CI/CD Enablement                                                    │
+│  2 ID: 1 - Titolo: Deploy customer-portal in errore su prod Stato: open Servizio: customer-portal (ambiente prod)                                                                                             │
+│                                                                                                                                                                                                               │
+│ Vuoi esaminare o registrare ulteriori operazioni su queste richieste?                                                                                                                                         │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+log: logs\runs\20261026T115658Z-2d39e0.jsonl
+(.venv) PS C:\Users\franc\source\cloud-devops-agent> devops-agent ask "Descrivimi la richiesta con ID 11"
+· iterazione 1: richiesta al modello
+  risposta in 652 ms · token 2007 in / 22 out
+  → get_request {"request_id": 11}
+  ← get_request ok (7 ms)
+· iterazione 2: richiesta al modello
+  risposta in 1829 ms · token 2311 in / 102 out
+■ arresto: final_answer · iterazioni 2 · tool 1 · token 4318/124 · 2499 ms
+╭─────────────────────────────────────────────────────────────────────────────────────────────────── Agente ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ La richiesta con ID 11 si intitola "Variabili d'ambiente mancanti in identity-service". Si trova nel servizio "identity-service" nell'ambiente "prod" e ha priorità "critical". È stata assegnata al team     │
+│ "CI/CD Enablement" e il suo stato attuale è "in_progress". La descrizione del problema è: "Il deploy si completa ma l'applicazione non trova la configurazione."                                              │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+log: logs\runs\20261026T115727Z-316a9e.jsonl
+(.venv) PS C:\Users\franc\source\cloud-devops-agent>

@@ -1,0 +1,17 @@
+id = "TST-03"
+title = "Ricerca di una richiesta inesistente"
+category = "anomalia"
+request = "Dammi lo stato della richiesta 4521."
+expected = "Il server restituisce NOT_FOUND; l'agente comunica che la richiesta non esiste, senza inventare dati e senza crash."
+
+[expect]
+stop_reason = "final_answer"
+tool_failed = ["get_request"]
+tools_not_called = ["create_request", "assign_request"]
+answer_any = ["non esiste", "inesistente", "non trovata", "non è stata trovata", "non risulta", "nessuna richiesta"]
+
+[[script]]
+tool_calls = [{ name = "get_request", arguments = { request_id = 4521 } }]
+
+[[script]]
+text = "La richiesta 4521 non esiste nel sistema. Verifica il numero oppure chiedimi l'elenco delle richieste aperte."
