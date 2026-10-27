@@ -1,6 +1,5 @@
 # Agent per le richieste operative di un team Cloud/DevOps
 
-
 ## Architettura
 
 ![Architettura](docs/uml/out/architecture.svg)
@@ -30,7 +29,7 @@ Windows (PowerShell):
 py -3.12 -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -e ".[dev]"
-copy config.example.toml config.toml
+copy config.example.toml config.toml #può essere omesso in quanto ho committato config.toml nel repo
 ollama pull qwen2.5:7b
 devops-agent init-db
 ```
@@ -41,7 +40,7 @@ Linux e macOS:
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
-cp config.example.toml config.toml
+cp config.example.toml config.toml #può essere omesso in quanto ho committato config.toml nel repo
 ollama pull qwen2.5:7b
 devops-agent init-db
 ```
